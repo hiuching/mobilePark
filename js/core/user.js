@@ -505,7 +505,7 @@ var ModuleLoginFormView = Backbone.Marionette.ItemView.extend({
 				// App.vent.trigger('homepage:resolve');
 			},
 			error: function (err) {
-				App.Utils.showAlert({type: 'error', title: 'Error', content: 'Inncorrect HKID/Code or password'});
+				App.Utils.showAlert({type: 'error', title: 'Error', content: 'err'});
 			}
 		});
 	},
