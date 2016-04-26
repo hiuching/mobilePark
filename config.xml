@@ -15,6 +15,6 @@
 		<plugin name="net.roughshod.plugins.barcodescanner" spec="3.0.0" source="pgb" />
 		<plugin name="com.albahra.plugin.networkinterface" spec="1.0.7" source="pgb" />
 		<plugin name="com.jmi2.cordova.geolocation" spec="0.3.15" source="pgb" />
-		
+		<platform name="android" />
 		<icon src="./usefulfile/images/icon.png" platform="android"/>
 </widget>
