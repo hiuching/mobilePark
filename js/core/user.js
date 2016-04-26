@@ -498,6 +498,7 @@ var ModuleLoginFormView = Backbone.Marionette.ItemView.extend({
 			dataType: 'json',
 			url: "http://ec2-52-68-199-65.ap-northeast-1.compute.amazonaws.com:8082/login",
 			data: data,
+			crossDomain: true,
 			success: function (user) {
 				App.user = new ModuleModel(user);
 				// App.Utils.setUrlPath({pathname: '#homepage'});
