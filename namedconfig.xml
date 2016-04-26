@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns       = "http://www.w3.org/ns/widgets"
+        xmlns:gap   = "http://phonegap.com/ns/1.0"
+        id          = "org.coenraets.employeedirectory"
+        versionCode = "10"
+        version     = "1.1.0">
+ 
+    <name>Park</name>
+ 
+    <description>
+        A app for search park
+    </description>
+
+ 
+    <feature name="http://api.phonegap.com/1.0/camera"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/media"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+ 
+		<icon src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQhavwhk74TpBy5WLuLPpdBXg9TVxhiggqrRtU4RpcXu4FbmAoZ" platform="android"/>
+		<plugin name="net.roughshod.plugins.barcodescanner" spec="3.0.0" source="pgb" />
+</widget>

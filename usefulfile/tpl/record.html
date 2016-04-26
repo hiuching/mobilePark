@@ -1,0 +1,159 @@
+<script type="text/template" id="CheckOutByCashierFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Check Out</h3>
+			</div>
+			<div class="panel-body">
+				<form id="CheckOut" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<div class="col-md-3">
+								<select id="searchBy" name="searchBy" class="form-control">
+									<option value="user" >User</option>
+									<option value="park" >Park</option>
+								</select>
+							</div>
+							<label class="col-md-1 col-xs-1 control-label" for="code">Code</label>
+							<div class="col-md-5 col-xs-5">
+								<input id="code" name="code" class="input-md form-control" type="text" value=""/>
+							</div>
+							<div class="col-md-2 col-xs-2">
+								<button type="submit" class="btn btn-default btn-md user-submit pull-right">Check In</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="checkOutByResultRegion"></div>
+</script>
+
+<script type="text/template" id="CheckOutByResultItemView">
+	<td><b>	<%= obj.name%></b></td>
+	<td><b>	<%= obj.username%></b></td>
+	<td><b>	<%= obj.phone%></b></td>
+	<td><b>	<%= obj.startTime %></b></td>
+	<td><button class="btn btn-xs btn-success checkout">checkout</button></td>
+</script>
+
+<script type="text/template" id="CheckOutByResultListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
+			</div>
+				<table class="table table-responsive">
+					<thead>
+						<tr>
+							<th width="20%">Park</th>
+							<th width="20%">User</th>
+							<th width="20%">Phone</th>
+							<th width="20%">Start Time</th>
+							<th width="20%">Check Out</th>
+						</tr>
+					</thead>
+					<tbody class="checkOutByResultList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="AlertRecordItemView">
+	<td><b>	<%= obj.name%></b></td>
+	<td><b>	<%= obj.startTime %></b></td>
+	<td><b>	<%= obj.user %></b></td>
+	<td><b>	<%= obj.phone %></b></td>
+	<td><b>	<%= obj.timeLimit %></b></td>
+</script>
+
+<script type="text/template" id="AlertRecordListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
+				<div id="pager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div>
+			</div>
+				<table class="table table-list-search table-responsive tablesorter" id="alertRecordtable">
+					<thead>
+						<tr>
+							<th width="20%">Name</th>
+							<th width="20%">Start Time</th>
+							<th width="20%">user</th>
+							<th width="20%">phone</th>
+							<th width="20%">limit</th>
+						</tr>
+					</thead>
+					<tbody class="alertRecordList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="RecordItemView">
+		<div class = 'row'>
+		<div class = "col-md-10 col-xs-10">
+			<div><b><%= obj.name %></b></div>
+			<div>Time: <%= obj.startTime %><%= obj.endTime ? " - " + obj.endTime : "" %></div>
+			<div>Type: <%= obj.type%></div>
+		</div>
+		<div class = "col-md-2 col-xs-2 vertical-align">
+			<h2><%= obj.totalCost %></h2>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="RecordListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
+<!-- 				<div id="pager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div> -->
+			</div>
+<!-- 				<table class="table table-list-search table-responsive tablesorter" id="recordtable">
+					<thead>
+						<tr>
+							<th width="30%">Name</th>
+							<th width="20%">Start Time</th>
+							<th width="20%">End Time</th>
+							<th width="30%">Amount</th>
+						</tr>
+					</thead>
+					<tbody class="recordList">
+					</tbody>
+				</table> -->
+				
+					<ul class="recordList list-group">
+					</ul>
+		</div>
+	</div>
+</script>

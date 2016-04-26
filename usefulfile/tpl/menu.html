@@ -1,0 +1,181 @@
+﻿<script type="text/template" id="AdminMenuView">
+	<nav class="navbar navbar-custom">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		<a class="navbar-brand" href="#">Car Park</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav navbar-left">
+				<li><a href="#user/manageUserList">Manage User</a></li>
+				<li><a href="#user/createCashier">New Cashier</a></li>
+				<li><a href="#user/createOwner">New Partner</a></li>
+				<li><a href="#user/createPolice">New Police</a></li>
+				<li><a href="#park/searchPark">Park</a></li>
+				<li><a href="#user/profile">Profile</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		  </ul>
+			<ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+      </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+</script>
+
+<script type="text/template" id="CashierMenuView">
+	<nav class="navbar navbar-custom">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		  <a class="navbar-brand" href="#">Car Park</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav navbar-left">
+				<li><a href="#user/cashForm">Deposit</a></li>
+				<li><a href="#record/forceCheckOut">Check Out</a></li>
+				<li><a href="#user/cashierProfile">Profile</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		  </ul>
+			<ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+      </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+</script>
+
+<script type="text/template" id="OwnerMenuView">
+	<nav class="navbar navbar-custom">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		  <a class="navbar-brand" href="#">Car Park</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav navbar-left">
+				<li><a href="#park/myPark">My Park</a></li>
+				<li><a href="#park/createPark">New Park</a></li>
+				<li><a href="#user/ownerProfile">Profile</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		  </ul>
+			<ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+      </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+</script>
+
+<script type="text/template" id="PoliceMenuView">
+	<nav class="navbar navbar-custom">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		  <a class="navbar-brand" href="#">Car Park</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav navbar-left">
+				<li><a href="#record/alertPark">Illegal Parking</a></li>
+				<li><a href="#report/report">Illegal Report</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Password</a></li>
+		  </ul>
+			<ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+      </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+</script>
+
+<script type="text/template" id="UserMenuView">
+	<nav class="navbar navbar-custom">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+		  <a class="navbar-brand" href="#">Car Park</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		  <ul class="nav navbar-nav navbar-left">
+				<li><a href="#park/checkIn">Home</a></li>
+				<li><a href="#park/scan">check In/Out</a></li>
+				<li><a href="#park/searchPark">Search Park</a></li>
+				<li><a href="#record/myRecord">Record</a></li>
+				<li><a href="#report/newReport">Report</a></li>
+				<li><a href="#user/profile">Profile</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		  </ul>
+			<ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+      </ul>
+		</div><!-- /.navbar-collapse -->
+	  </div><!-- /.container-fluid -->
+	</nav>
+</script>
+
+<script type="text/template" id="AdminMenuView1">
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="sidebar-brand"><a href="#user/manageUserList">Car Park</a><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+			<li><a href="#user/manageUserList">Manage User</a></li>
+			<li><a href="#user/createOwner">New Partner</a></li>
+			<li><a href="#park/searchPark">Park</a></li>
+			<li><a href="#user/profile">Profile</a></li>
+			<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		</ul>
+	</div>
+</script>
+
+<script type="text/template" id="OwnerMenuView1">
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="sidebar-brand"><a href="#user/ownProfile">Car Park</a><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+			<li><a href="#user/ownProfile">Profile</a></li>
+			<li><a href="#park/createPark">New Park</a></li>
+			<li><a href="#park/myPark">My Park</a></li>
+			<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		</ul>
+	</div>
+</script>
+
+<script type="text/template" id="UserMenuView1">
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li class="sidebar-brand"><a href="#user/profile">Car Park</a><a href="#" id="logout"><i class="fa fa-sign-out fa-inverse"></i></a></li>
+				<li><a href="#park/checkIn">check In/Out</a></li>
+				<li><a href="#park/searchPark">Search Park</a></li>
+				<li><a href="#user/profile">Profile</a></li>
+				<li><a href="#user/changeEmailOrPassword">Change Email/Password</a></li>
+		</ul>
+	</div>
+</script>

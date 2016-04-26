@@ -1,0 +1,309 @@
+﻿<script type="text/template" id="CheckInOutFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Check In</h3>
+			</div>
+			<div class="panel-body">
+				<form id="CheckIn" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 col-xs-3 control-label" for="code">Park Code</label>
+							<div class="col-md-5 col-xs-5">
+								<input id="code" name="code" class="input-md form-control inline" type="text" value=""/>
+							</div>
+							<div class="col-md-2 col-xs-2">
+								<button type="submit" class="btn btn-default btn-md user-submit pull-right">Check In</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="nearestParkListRegion"></div>
+</script>
+
+<script type="text/template" id="CreateParkFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">New Park</h3>
+			</div>
+			<div class="panel-body">
+				<form id="newPark" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="code">Code</label>
+							<div class="col-md-5">
+								<input name="code" class="input-md form-control" type="text" value="<%= obj.code %>" readonly/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="type">Park Type</label>
+							<div class="col-md-8">
+								<span class="col-md-2"><input name="type" class="input-md" type="radio" value="Car Park" <%=  obj.type == "Car Park" ? "checked" : "" %>/> Car Park</span>
+								<span class="col-md-2"><input name="type" class="input-md" type="radio" value="Meter" <%=  obj.type == "Meter" ? "checked" : "" %>/> Meter</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="type">Allow Reserve</label>
+							<div class="col-md-8">
+								<span class="col-md-2"><input name="allowReserve" class="input-md" type="radio" value="true" <%=  obj.allowReserve ? "checked" : "" %>> True</span>
+								<span class="col-md-2"><input name="allowReserve" class="input-md" type="radio" value="false" <%=  obj.allowReserve ? "" : "checked" %>> False</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Park Name</label>
+							<div class="col-md-5">
+								<input id="name" name="name" class="form-control input-md" placeholder="Name" type="text" value="<%= obj.name %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="district">District</label>
+							<div class="col-md-5">
+								<select id="district" name="district" class="form-control">
+									<option selected disabled>Please select</option>
+									<option value="Central and Western" <%=  obj.district == "Central and Western" ? "selected" : "" %> >Central and Western</option>
+									<option value="Eastern" <%=  obj.district == "Eastern" ? "selected" : "" %> >Eastern</option>
+									<option value="Southern" <%=  obj.district == "Southern" ? "selected" : "" %> >Southern</option>
+									<option value="Wan Chai" <%=  obj.district == "Wan Chai" ? "selected" : "" %> >Wan Chai</option>
+									<option value="Sham Shui Po" <%=  obj.district == "Sham Shui Po" ? "selected" : "" %> >Sham Shui Po</option>
+									<option value="Kowloon City" <%=  obj.district == "Kowloon City" ? "selected" : "" %> >Kowloon City</option>
+									<option value="Kwun Tong" <%=  obj.district == "Kwun Tong" ? "selected" : "" %> >Kwun Tong</option>
+									<option value="Wong Tai Sin" <%=  obj.district == "Wong Tai Sin" ? "selected" : "" %> >Wong Tai Sin</option>
+									<option value="Yau Tsim Mong" <%=  obj.district == "Yau Tsim Mong" ? "selected" : "" %> >Yau Tsim Mong</option>
+									<option value="Islands" <%=  obj.district == "Islands" ? "selected" : "" %> >Islands</option>
+									<option value="Kwai Tsing" <%=  obj.district == "Kwai Tsing" ? "selected" : "" %> >Kwai Tsing</option>
+									<option value="North" <%=  obj.district == "North" ? "selected" : "" %> >North</option>
+									<option value="Sai Kung" <%=  obj.district == "Sai Kung" ? "selected" : "" %> >Sai Kung</option>
+									<option value="Sha Tin" <%=  obj.district == "Sha Tin" ? "selected" : "" %> >Sha Tin</option>
+									<option value="Tai Po" <%=  obj.district == "Tai Po" ? "selected" : "" %> >Tai Po</option>
+									<option value="Tsuen Wan" <%=  obj.district == "Tsuen Wan" ? "selected" : "" %> >Tsuen Wan</option>
+									<option value="Tuen Mun" <%=  obj.district == "Tuen Mun" ? "selected" : "" %> >Tuen Mun</option>
+									<option value="Yuen Long" <%=  obj.district == "Yuen Long" ? "selected" : "" %> >Yuen Long</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="address">Address</label>
+							<div class="col-md-5">
+								<input id="address" name="address" class="form-control input-md" placeholder="Address" type="text" value="<%= obj.address %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="coordinate">Coordinate</label>
+							<div class="col-md-2">
+								<input id="coordinate1" name="coordinate1" class="form-control input-md" placeholder="e.g. 133.255" type="text" value="<%= obj.coordinate1 %>"/>
+							</div>
+							<div class="col-md-2">
+								<input id="coordinate2" name="coordinate2" class="form-control input-md" placeholder="e.g. 22.235" type="text" value="<%= obj.coordinate2 %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="quantity">Quantity</label>
+							<div class="col-md-5">
+								<input id="quantity" name="quantity" class="form-control input-md" placeholder="Quantity" type="text" value="<%= obj.quantity %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="timeRange1">Morning</label>
+							<div class="col-md-2">
+								<input id="startTime1" name="startTime1" class="form-control input-md" placeholder="Start Time" type="text" value="<%= obj.startTime1 %>"/>
+							</div>
+							<div class="col-md-2">
+								<input id="endTime1" name="endTime1" class="form-control input-md" placeholder="End Time" type="text" value="<%= obj.endTime1 %>"/>
+							</div>
+							<div class="col-md-2">
+								<input id="cost1" name="cost1" class="form-control input-md" placeholder="Cost" type="text" value="<%= obj.cost1 %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="timeRange2">Night</label>
+							<div class="col-md-2">
+								<input id="startTime2" name="startTime2" class="form-control input-md" placeholder="Start Time" type="text" value=""/>
+							</div>
+							<div class="col-md-2">
+								<input id="endTime2" name="endTime2" class="form-control input-md" placeholder="End Time" type="text" value=""/>
+							</div>
+							<div class="col-md-2">
+								<input id="cost2" name="cost2" class="form-control input-md" placeholder="Cost" type="text" value="<%= obj.cost2 %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="timeLimit">Time Limit</label>
+							<div class="col-md-2">
+								<input id="timeLimit" name="timeLimit" class="form-control input-md" placeholder="2" type="text" value="<%= obj.timeLimit %>"/>
+							</div><div class="paddingTop7px">hr(s)</div>
+							
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="phone">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" class="form-control input-md" placeholder="Phone" type="text" value="<%= obj.phone %>" />
+							</div>
+						</div>
+						<hr/>
+							<button type="submit" class="btn btn-default btn-md user-save pull-right">Save</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+
+<script type="text/template" id="ParkDetailFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title"><%= obj.name %></h3>
+			</div>
+			<div class="panel-body">
+				<form id="parkDetail" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="code">Code:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.code %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="type">Park Type:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%=  obj.type %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="district">District:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%=  obj.district %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="address">Address:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.address %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="quantity">Quantity:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.quantity %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="timeRange1">Cost:</label>
+							<div class="col-md-7 paddingTop7px">
+								$<span id="cost1"><%= obj.cost1 %></span>, (<span id="startTime1"><%= obj.startTime1 %></span> - <span id="endTime1"><%= obj.endTime1 %></span>)
+							</div>
+							<div class="timeRange2 col-md-7 col-md-offset-2 paddingTop7px">
+								$<span id="cost2"><%= obj.cost2 %></span>, (<span id="startTime2"></span> - <span id="endTime2"></span>)
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="timeLimit">Time Limit:</label>
+							<div class="col-md-7 paddingTop7px">
+								<span id="timeLimit"></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="phone">Phone:</label>
+							<div class="col-md-2 paddingTop7px">
+								<%= obj.phone %>
+							</div>
+						</div>
+						<hr/>
+							<button type="submit" class="btn btn-default btn-md user-cancel pull-right">Cancel</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="ParkItemView">
+	<div class = 'row'>
+		<div class = "col-md-8 col-xs-8">
+			<div><b><%= obj.name %></b></div>
+			<div>type: <%= obj.type%></div>
+			<div>code: <%= obj.code%></div>
+			<div>quantity: <%= obj.quantity%></div>
+		</div>
+		<div class = "col-md-4 col-xs-4">
+			<div><button class="btn btn-info edit table-btn-2">Edit</button></div><div><button class="btn btn-success reserve table-btn-2" value='reserve'>Reserve</button></div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="ParkListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">My Park<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
+<!-- 				<div id="pager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div> -->
+			</div>
+<!-- 				<table class="table table-list-search table-responsive tablesorter" id="parktable">
+					<thead>
+						<tr>
+							<th width="10%">Code</th>
+							<th width="10%">Type</th>
+							<th width="20%">Name</th>
+							<th width="20%">Quantity</th>
+							<th width="20%" class="options">Edit</th>
+						</tr>
+					</thead>
+					<tbody class="parkList">
+					</tbody>
+				</table> -->
+					<ul class="parkList list-group">
+					</ul>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="SearchParkCompositeView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Search Park</h3>
+			</div>
+				<select id="district" name="district" class="form-control">
+					<option selected disabled>Please select</option>
+					<option value="Central and Western" <%=  obj.district == "Central and Western" ? "selected" : "" %> >Central and Western</option>
+					<option value="Eastern" <%=  obj.district == "Eastern" ? "selected" : "" %> >Eastern</option>
+					<option value="Southern" <%=  obj.district == "Southern" ? "selected" : "" %> >Southern</option>
+					<option value="Wan Chai" <%=  obj.district == "Wan Chai" ? "selected" : "" %> >Wan Chai</option>
+					<option value="Sham Shui Po" <%=  obj.district == "Sham Shui Po" ? "selected" : "" %> >Sham Shui Po</option>
+					<option value="Kowloon City" <%=  obj.district == "Kowloon City" ? "selected" : "" %> >Kowloon City</option>
+					<option value="Kwun Tong" <%=  obj.district == "Kwun Tong" ? "selected" : "" %> >Kwun Tong</option>
+					<option value="Wong Tai Sin" <%=  obj.district == "Wong Tai Sin" ? "selected" : "" %> >Wong Tai Sin</option>
+					<option value="Yau Tsim Mong" <%=  obj.district == "Yau Tsim Mong" ? "selected" : "" %> >Yau Tsim Mong</option>
+					<option value="Islands" <%=  obj.district == "Islands" ? "selected" : "" %> >Islands</option>
+					<option value="Kwai Tsing" <%=  obj.district == "Kwai Tsing" ? "selected" : "" %> >Kwai Tsing</option>
+					<option value="North" <%=  obj.district == "North" ? "selected" : "" %> >North</option>
+					<option value="Sai Kung" <%=  obj.district == "Sai Kung" ? "selected" : "" %> >Sai Kung</option>
+					<option value="Sha Tin" <%=  obj.district == "Sha Tin" ? "selected" : "" %> >Sha Tin</option>
+					<option value="Tai Po" <%=  obj.district == "Tai Po" ? "selected" : "" %> >Tai Po</option>
+					<option value="Tsuen Wan" <%=  obj.district == "Tsuen Wan" ? "selected" : "" %> >Tsuen Wan</option>
+					<option value="Tuen Mun" <%=  obj.district == "Tuen Mun" ? "selected" : "" %> >Tuen Mun</option>
+									<option value="Yuen Long" <%=  obj.district == "Yuen Long" ? "selected" : "" %> >Yuen Long</option>
+				</select>
+				
+		</div>
+	</div>
+	<div id="parkListRegion"></div>
+</script>

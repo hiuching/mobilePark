@@ -1,0 +1,723 @@
+﻿<script type="text/template" id="CashFormView">
+	<div id="depositRegion">
+	</div>
+	<div id="depositDetailRegion">
+	</div>
+</script>
+
+<script type="text/template" id="DepositItemView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Deposit Detail</h3>
+			</div>
+			<div class="panel-body">
+				<form id="parkDetail" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="code">Code:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.code %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Name:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.firstName + ', ' + obj.lastName %>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="balance">Balance:</label>
+							<div class="col-md-5 paddingTop7px">
+								<%= obj.balance %>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="DepositFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Deposit</h3>
+			</div>
+			<div class="panel-body">
+				<form id="deposit" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="code">Code</label>
+							<div class="col-md-3">
+								<input id="code" name="code" class="form-control input-md" placeholder="code" type="text" value="" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="amount">Amount</label>
+							<div class="col-md-3">
+								<input id= "amount" name="amount" class="form-control input-md" placeholder="amount" type="text" value=""/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="changeEmailAndPasswordFormView">
+	<div id="emailRegion">
+	</div>
+	<div id="passwordRegion">
+	</div>
+</script>
+
+<script type="text/template" id="changeEmailFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Change Email</h3>
+			</div>
+			<div class="panel-body">
+				<form id="ChangeEmail" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="email">Email</label>
+							<div class="col-md-3">
+								<input id="email" name="email" class="form-control input-md" placeholder="Email" type="text" value="" />
+							</div>
+							<div class="col-md-2">
+								<button id= "getVerifyCode" class="btn btn-success">get verify code</button>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="verifyCode">Verify Code</label>
+							<div class="col-md-3">
+								<input id="verifyCode" name="verifyCode" placeholder="Verify Code" class="form-control input-md" type="text" value=""/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<div class="emailAlertRegion">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="ChangePasswordFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Change Password</h3>
+			</div>
+			<div class="panel-body">
+				<form id="ChangePassword" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="currentPassword">Current Password</label>
+							<div class="col-md-3">
+								<input id="currentPassword" name="currentPassword" class="form-control input-md" placeholder="Current Password" type="password" value="" />
+								<i class="fa fa-eye changepasswordEye" data-target="currentPassword" style="display: inline;"></i>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="newPassword">New Password</label>
+							<div class="col-md-3">
+								<input id="newPassword" name="newPassword" placeholder="New Password" class="form-control input-md" type="password" value=""/>
+								<i class="fa fa-eye changepasswordEye" data-target="newPassword" style="display: inline;"></i>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-4 control-label" for="confirmPassword">Confirm Password</label>
+							<div class="col-md-3">
+								<input id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" class="form-control input-md" type="password" value=""/>
+								<i class="fa fa-eye changepasswordEye" data-target="confirmPassword" style="display: inline;"></i>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<div class="alertRegion">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="CreateCashierFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">New Cashier</h3>
+			</div>
+			<div class="panel-body">
+				<form id="newOwner" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Company Name</label>
+							<div class="col-md-5">
+								<input id="name" name="name" class="form-control input-md" placeholder="Company Name" type="text" value="<%= obj.lastName %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="email">Email</label>
+							<div class="col-md-5">
+								<input id="email" name="email" placeholder="Email" class="form-control input-md" type="text" value="<%= obj.email %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Address</label>
+							<div class="col-md-3">
+								<select id="district" name="district" class="form-control">
+									<option selected disabled>Please select</option>
+									<option value="Central and Western" <%=  obj.district == "Central and Western" ? "selected" : "" %> >Central and Western</option>
+									<option value="Eastern" <%=  obj.district == "Eastern" ? "selected" : "" %> >Eastern</option>
+									<option value="Southern" <%=  obj.district == "Southern" ? "selected" : "" %> >Southern</option>
+									<option value="Wan Chai" <%=  obj.district == "Wan Chai" ? "selected" : "" %> >Wan Chai</option>
+									<option value="Sham Shui Po" <%=  obj.district == "Sham Shui Po" ? "selected" : "" %> >Sham Shui Po</option>
+									<option value="Kowloon City" <%=  obj.district == "Kowloon City" ? "selected" : "" %> >Kowloon City</option>
+									<option value="Kwun Tong" <%=  obj.district == "Kwun Tong" ? "selected" : "" %> >Kwun Tong</option>
+									<option value="Wong Tai Sin" <%=  obj.district == "Wong Tai Sin" ? "selected" : "" %> >Wong Tai Sin</option>
+									<option value="Yau Tsim Mong" <%=  obj.district == "Yau Tsim Mong" ? "selected" : "" %> >Yau Tsim Mong</option>
+									<option value="Islands" <%=  obj.district == "Islands" ? "selected" : "" %> >Islands</option>
+									<option value="Kwai Tsing" <%=  obj.district == "Kwai Tsing" ? "selected" : "" %> >Kwai Tsing</option>
+									<option value="North" <%=  obj.district == "North" ? "selected" : "" %> >North</option>
+									<option value="Sai Kung" <%=  obj.district == "Sai Kung" ? "selected" : "" %> >Sai Kung</option>
+									<option value="Sha Tin" <%=  obj.district == "Sha Tin" ? "selected" : "" %> >Sha Tin</option>
+									<option value="Tai Po" <%=  obj.district == "Tai Po" ? "selected" : "" %> >Tai Po</option>
+									<option value="Tsuen Wan" <%=  obj.district == "Tsuen Wan" ? "selected" : "" %> >Tsuen Wan</option>
+									<option value="Tuen Mun" <%=  obj.district == "Tuen Mun" ? "selected" : "" %> >Tuen Mun</option>
+									<option value="Yuen Long" <%=  obj.district == "Yuen Long" ? "selected" : "" %> >Yuen Long</option>
+								</select>
+							</div>
+							<div class="col-md-5">
+								<input id="address" name="address" placeholder="address" class="form-control input-md" type="text" value="<%= obj.address %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" placeholder="Phone" class="form-control input-md" type="text" value="<%= obj.phone %>"/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="CreatePoliceFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">New Police</h3>
+			</div>
+			<div class="panel-body">
+				<form id="newPolice" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="HKIDOrCode">Police Number</label>
+							<div class="col-md-5">
+								<input id="HKIDOrCode" name="HKIDOrCode" class="form-control input-md" placeholder="Police Number" type="text" value="<%= obj.HKIDOrCode %>" />
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="CreateOwnerFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">New Partner</h3>
+			</div>
+			<div class="panel-body">
+				<form id="newOwner" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Company Name</label>
+							<div class="col-md-5">
+								<input id="name" name="name" class="form-control input-md" placeholder="Company Name" type="text" value="<%= obj.lastName %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="email">Email</label>
+							<div class="col-md-5">
+								<input id="email" name="email" placeholder="Email" class="form-control input-md" type="text" value="<%= obj.email %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" placeholder="Phone" class="form-control input-md" type="text" value="<%= obj.phone %>"/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="ForgotPasswordFormView">
+	<div class="container">
+		<section id="content">
+			<form action="">
+				<h1>Forgot Password</h1>
+				<div>
+					<input type="text" placeholder="Enter your HKID" required="" id="HKIDOrCode" />
+				</div>
+				<div class="row">
+					<input type="submit" value="Submit"/>
+				</div>
+				<div class="alertRegion">
+				</div>
+			</form>
+		</section>
+	</div>
+</script>
+
+<script type="text/template" id="LoginFormView">
+	<div class="container">
+		<section id="content">
+			<form action="">
+				<h1>Login Form</h1>
+				<div>
+					<input type="text" placeholder="HKID / Code" required="" id="HKIDOrCode" />
+				</div>
+				<div>
+					<input type="password" placeholder="Password" required="" id="password" />
+					<i class="fa fa-eye passwordEye" style="display: inline;"></i>
+				</div>
+				<div class="row">
+					<input type="submit" value="Log in"/>
+				</div>
+				<div class="alertRegion">
+				</div>
+				<div>
+					<a href="#registerUser" class="col-sm-4 col-md-4">Register User</a>
+					<a href="#forgotPassword" class="col-sm-4 col-md-4">Forgot password?</a>
+					<a href="#user/registerCarParkOwner" class="col-sm-4 col-md-4">Join us</a>
+				</div>
+			</form>
+		</section>
+	</div>
+</script>
+
+<script type="text/template" id="ManageUserView">
+	<div id="userRegion">
+	</div>
+	<div id="OwnerRegion">
+	</div>
+	<div id="cashierRegion">
+	</div>
+	<div id="policeRegion">
+	</div>
+</script>
+
+<script type="text/template" id="ProfileFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Profile</h3>
+			</div>
+			<div class="panel-body">
+				<form id="userDetails" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="lastName">Name</label>
+							<div class="col-md-2">
+								<input id="lastName" name="lastName" class="form-control input-md" placeholder="Last Name" type="text" value="<%= obj.lastName %>" />
+							</div>
+							<div class="col-md-3">
+								<input id="firstName" name="firstName" class="form-control input-md" placeholder="First Name" type="text" value="<%= obj.firstName %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="HKID">HKID</label>
+							<div class="col-md-3">
+								<input id="HKID" name="HKID" placeholder="HKID" class="form-control" type="text" value="<%= obj.HKIDOrCode %>" readonly=true/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="email">Email</label>
+							<div class="col-md-5">
+								<input id="email" name="email" placeholder="Email" class="form-control input-md" type="text" value="<%= obj.email %>" readonly=true/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" placeholder="Phone" class="form-control input-md" type="text" value="<%= obj.phone %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Balance</label>
+							<div class="col-md-2">
+								<input id="balance" name="balance" class="form-control input-md" value="<%= obj.balance %>" readonly=true />
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<div class="alertRegion">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="CashierProfileFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Profile</h3>
+			</div>
+			<div class="panel-body">
+				<form id="cashierDetails" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="name">Company Name</label>
+							<div class="col-md-5">
+								<input id="name" name="name" class="form-control input-md" placeholder="Name" type="text" value="<%= obj.lastName %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="HKID">Code </label>
+							<div class="col-md-3">
+								<input id="code" name="code" class="form-control input-md" value="<%= obj.HKIDOrCode %>" readonly=true />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Address</label>
+							<div class="col-md-3">
+								<select id="district" name="district" class="form-control">
+									<option selected disabled>Please select</option>
+									<option value="Central and Western" <%=  obj.district == "Central and Western" ? "selected" : "" %> >Central and Western</option>
+									<option value="Eastern" <%=  obj.district == "Eastern" ? "selected" : "" %> >Eastern</option>
+									<option value="Southern" <%=  obj.district == "Southern" ? "selected" : "" %> >Southern</option>
+									<option value="Wan Chai" <%=  obj.district == "Wan Chai" ? "selected" : "" %> >Wan Chai</option>
+									<option value="Sham Shui Po" <%=  obj.district == "Sham Shui Po" ? "selected" : "" %> >Sham Shui Po</option>
+									<option value="Kowloon City" <%=  obj.district == "Kowloon City" ? "selected" : "" %> >Kowloon City</option>
+									<option value="Kwun Tong" <%=  obj.district == "Kwun Tong" ? "selected" : "" %> >Kwun Tong</option>
+									<option value="Wong Tai Sin" <%=  obj.district == "Wong Tai Sin" ? "selected" : "" %> >Wong Tai Sin</option>
+									<option value="Yau Tsim Mong" <%=  obj.district == "Yau Tsim Mong" ? "selected" : "" %> >Yau Tsim Mong</option>
+									<option value="Islands" <%=  obj.district == "Islands" ? "selected" : "" %> >Islands</option>
+									<option value="Kwai Tsing" <%=  obj.district == "Kwai Tsing" ? "selected" : "" %> >Kwai Tsing</option>
+									<option value="North" <%=  obj.district == "North" ? "selected" : "" %> >North</option>
+									<option value="Sai Kung" <%=  obj.district == "Sai Kung" ? "selected" : "" %> >Sai Kung</option>
+									<option value="Sha Tin" <%=  obj.district == "Sha Tin" ? "selected" : "" %> >Sha Tin</option>
+									<option value="Tai Po" <%=  obj.district == "Tai Po" ? "selected" : "" %> >Tai Po</option>
+									<option value="Tsuen Wan" <%=  obj.district == "Tsuen Wan" ? "selected" : "" %> >Tsuen Wan</option>
+									<option value="Tuen Mun" <%=  obj.district == "Tuen Mun" ? "selected" : "" %> >Tuen Mun</option>
+									<option value="Yuen Long" <%=  obj.district == "Yuen Long" ? "selected" : "" %> >Yuen Long</option>
+								</select>
+							</div>
+							<div class="col-md-5">
+								<input id="address" name="address" placeholder="address" class="form-control input-md" type="text" value="<%= obj.street %>"/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="email">Email</label>
+							<div class="col-md-5">
+								<input id="email" name="email" placeholder="Email" class="form-control input-md" type="text" value="<%= obj.email %>" readonly=true/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" placeholder="Phone" class="form-control input-md" type="text" value="<%= obj.phone %>"/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<div class="alertRegion">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="OwnerProfileFormView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Profile</h3>
+			</div>
+			<div class="panel-body">
+				<form id="userDetails" role="form" class="form-horizontal">
+					<fieldset>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="lastName">Company Name</label>
+							<div class="col-md-5">
+								<input id="lastName" name="lastName" class="form-control input-md" placeholder="Last Name" type="text" value="<%= obj.lastName %>" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="HKID">Code </label>
+							<div class="col-md-3">
+								<input id="code" name="code" class="form-control input-md" value="<%= obj.HKIDOrCode %>" readonly=true />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label" for="email">Email</label>
+							<div class="col-md-5">
+								<input id="email" name="email" placeholder="Email" class="form-control input-md" type="text" value="<%= obj.email %>" readonly=true/>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 control-label">Phone</label>
+							<div class="col-md-2">
+								<input id="phone" name="phone" placeholder="Phone" class="form-control input-md" type="text" value="<%= obj.phone %>"/>
+							</div>
+						</div>
+						<hr/>
+						<div>
+							<button class="btn btn-default btn-md user-save pull-right" type="submit">Save</button>
+						</div>
+					</fieldset>
+				</form>
+				<div class="alertRegion">
+				</div>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="SignUpFormView">
+	<div class="container">
+		<section id="content">
+			<form action="">
+				<h1>Register Form</h1>
+				<div class="required">
+					<input type="text" placeholder="HKID" required="" id="HKIDOrCode" />
+				</div>
+				<div class="required">
+					<input type="text" placeholder="First Name" required="" id="firstName" />
+				</div>
+				<div>
+					<input type="text" placeholder="Last Name" required="" id="lastName" />
+				</div>				
+				<div>
+					<input type="text" placeholder="Email" required="" id="email" />
+				</div>
+				<div>
+					<input type="text" placeholder="Phone" id="phone" />
+				</div>
+				<div  class="row">
+					<input type="submit" value="Sign Up"/>
+				</div>
+				<div class="alertRegion">
+				</div>
+			</form>
+		</section>
+	</div>
+</script>
+
+<script type="text/template" id="CashierItemView">
+	<td><b>	<%= obj.lastName%></b></td>
+	<td><b>	<%= obj.email %></b></td>
+	<td><b>	<%= obj.HKIDOrCode %></b></td>
+	<td><button class="btn btn-xs btn-info detail table-btn-2">detail</button><button class="btn btn-xs btn-success resetPassword table-btn-2">Password</button></td>
+</script>
+
+<script type="text/template" id="CashierListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Manage Cashier</h3>
+				<div id="cashierPager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div>
+			</div>
+				<table class="table table-list-search table-responsive tablesorter" id="cashiertable">
+					<thead>
+						<tr>
+							<th width="25%">Company Name</th>
+							<th width="25%">Email</th>
+							<th width="25%">Code</th>
+							<th width="25%">Detail</th>
+						</tr>
+					</thead>
+					<tbody class="cashierList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
+<script type="text/template" id="OwnerItemView">
+	<td><b>	<%= obj.lastName%></b></td>
+	<td><b>	<%= obj.email %></b></td>
+	<td><b>	<%= obj.HKIDOrCode %></b></td>
+	<td><b>	<%= obj.phone %></b></td>
+	<td><button class="btn btn-xs btn-info detail table-btn-2">detail</button><button class="btn btn-xs btn-success resetPassword table-btn-2">Password</button></td>
+</script>
+
+<script type="text/template" id="OwnerListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Manage Owner</h3>
+				<div id="ownerPager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div>
+			</div>
+				<table class="table table-list-search table-responsive tablesorter" id="ownertable">
+					<thead>
+						<tr>
+							<th width="20%">Company Name</th>
+							<th width="20%">Email</th>
+							<th width="20%">Code</th>
+							<th width="20%">Phone</th>
+							<th width="20%">Detail</th>
+						</tr>
+					</thead>
+					<tbody class="ownerList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="PoliceItemView">
+	<td><b>	<%= obj.HKIDOrCode %></b></td>
+	<td><button class="btn btn-xs btn-success resetPassword table-btn-1">Password</button></td>
+</script>
+
+<script type="text/template" id="PoliceListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Manage Police</h3>
+				<div id="policePager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div>
+			</div>
+				<table class="table table-list-search table-responsive tablesorter" id="policetable">
+					<thead>
+						<tr>
+							<th width="50%">PC Number</th>
+							<th width="50%">Reset Password</th>
+						</tr>
+					</thead>
+					<tbody class="policeList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
+
+<script type="text/template" id="UserItemView">
+	<td><b>	<%= obj.lastName + " " + obj.firstName%></b></td>
+	<td><b>	<%= obj.email %></b></td>
+	<td><b>	<%= obj.HKIDOrCode %></b></td>
+	<td><b>	<%= obj.phone %></b></td>
+	<td><button class="btn btn-xs btn-info admin table-btn-2">user</button><button class="btn btn-xs btn-info detail table-btn-2">detail</button></td>
+</script>
+
+<script type="text/template" id="UserListView">
+	<div class="container">
+		<div class="panel panel-black">
+			<div class="panel-heading">
+				<h3 class="panel-title">Manage User</h3>
+				<div id="pager" class="pager tablesorter-pager pull-right">
+					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
+					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
+					<span class="pagedisplay"></span>
+					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
+					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
+					<select class="pagesize notRead" title="Select Page Size">
+						<option selected="selected" value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+					</select>
+					<select class=" notRead" title="Select page number"></select>
+				</div>
+			</div>
+				<table class="table table-list-search table-responsive tablesorter" id="usertable">
+					<thead>
+						<tr>
+							<th width="20%">Name</th>
+							<th width="20%">Email</th>
+							<th width="20%">HKID</th>
+							<th width="20%">Phone</th>
+							<th width="20%">Assign Admin</th>
+						</tr>
+					</thead>
+					<tbody class="userList">
+					</tbody>
+				</table>
+		</div>
+	</div>
+</script>
