@@ -15,7 +15,7 @@
 		<plugin name="net.roughshod.plugins.barcodescanner" spec="3.0.0" source="pgb" />
 		<plugin name="com.albahra.plugin.networkinterface" spec="1.0.7" source="pgb" />
 		<plugin name="com.jmi2.cordova.geolocation" spec="0.3.15" source="pgb" />
-		<plugin name="com.synconset.cordovahttp" spec="0.1.4" source="pgb" />
 		<platform name="android" />
+		<access origin="c2-52-68-199-65.ap-northeast-1.compute.amazonaws.com:8082" /> 
 		<icon src="./usefulfile/images/icon.png" platform="android"/>
 </widget>
