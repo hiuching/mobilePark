@@ -12,15 +12,8 @@
     </description>
 
  
-    <feature name="http://api.phonegap.com/1.0/camera"/>
-    <feature name="http://api.phonegap.com/1.0/geolocation"/>
-    <feature name="http://api.phonegap.com/1.0/media"/>
-    <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/notification"/>
- 
 		<plugin name="net.roughshod.plugins.barcodescanner" spec="3.0.0" source="pgb" />
 		<plugin name="com.albahra.plugin.networkinterface" spec="1.0.7" source="pgb" />
-		<plugin name="org.wbt11a.nativecamera" spec="0.1.4" source="pgb" />
 		<plugin name="com.jmi2.cordova.geolocation" spec="0.3.15" source="pgb" />
 		
 		<icon src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQhavwhk74TpBy5WLuLPpdBXg9TVxhiggqrRtU4RpcXu4FbmAoZ" platform="android"/>
