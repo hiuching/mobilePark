@@ -2,18 +2,21 @@
 	<div class="container">
 		<div class="panel panel-black">
 			<div class="panel-heading">
-				<h3 class="panel-title">Check In</h3>
+				<h3 class="panel-title"><%= App.user.getFirstName() %> + <%= App.user.getLastName() %></h3>
 			</div>
 			<div class="panel-body">
-				<form id="CheckIn" role="form" class="form-horizontal">
+				<form id="UserInfo" role="form" class="form-horizontal">
 					<fieldset>
 						<div class="form-group">
-							<label class="col-md-2 col-xs-3 control-label" for="code">Park Code</label>
+							<label class="col-md-2 col-xs-3 control-label" for="Code">Code</label>
 							<div class="col-md-5 col-xs-5">
-								<input id="code" name="code" class="input-md form-control inline" type="text" value=""/>
+								<input id="code" name="code" class="input-md form-control inline" type="text" value="<%= App.user.getCode() %> readonly"/>
 							</div>
-							<div class="col-md-2 col-xs-2">
-								<button type="submit" class="btn btn-default btn-md user-submit pull-right">Check In</button>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-xs-3 control-label" for="balance">Balance</label>
+							<div class="col-md-5 col-xs-5">
+								<input id="balance" name="balance" class="input-md form-control inline" type="text" value="<%= App.user.getBalance() %> readonly"/>
 							</div>
 						</div>
 					</fieldset>

@@ -623,16 +623,60 @@ var displaySearchParkResultView = function (options) {
 };
 
 var scanQRCode = function (options) {
-	App.Utils.showAlert({type: 'Success', title: 'Success', content: 'scanQRCode'});
+	// App.Utils.showAlert({type: 'Success', title: 'Success', content: 'scanQRCode'});
 	cordova.plugins.barcodeScanner.scan(
 		function (result) {
-			if(!result.cancelled)
-			{
-				alert("Barcode type is: " + result.format);
-				alert("Decoded text is: " + result.text);
-			}
-			else
-			{
+			if(!result.cancelled){
+				if(App.user.isParking()){
+					var data = {
+						action: 'checkOut',
+						code: code,
+						user: App.user.getId()
+					};
+					
+					this.model.save(data, {
+						success: function (model) {
+							var str = 'you have checked out to ' + model.getName();
+							App.user.unsetParking();
+							displayCheckInOutFormView();
+							App.vent.trigger('user:refreshUser');
+							App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+						},
+						error: function (model, err) {
+							var str = 'Faile to check out';
+							if(err.responseText){
+								str = JSON.parse(err.responseText).message;
+							}
+							App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+						}
+					});
+				} else {
+					if(App.user.getBalance() > 0){
+						var data = {
+							action: 'checkIn',
+							code: code,
+							user: App.user.getId()
+						};
+						this.model.save(data, {
+							success: function (model) { 
+								var str = 'you have checked in to ' + model.getName();
+								App.user.setParking();
+								displayCheckInOutFormView();
+								App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+							},
+							error: function (model, err) {
+								var str = 'Faile to check in';
+								if(err.responseText){
+									str = JSON.parse(err.responseText).message;
+								}
+								App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+							}
+						});
+					} else {
+						App.Utils.showAlert({type: 'error', title: 'Error', content: 'Not enough balance'});
+					}
+				}
+			} else {
 				alert("You have cancelled scan");
 			}
 		},
