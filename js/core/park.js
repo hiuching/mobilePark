@@ -577,7 +577,6 @@ var displaySearchParkResultView = function (options) {
 };
 
 var checkInOrOut = function(code){
-	alert('code: ' + code);
 	var model = new ModuleModel();
 	if(App.user.isParking()){
 		var data = {
