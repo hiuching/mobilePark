@@ -1,8 +1,8 @@
-﻿<script type="text/template" id="CheckInOutFormView">
+﻿<script type="text/template" id="HomeView">
 	<div class="container">
 		<div class="panel panel-black">
 			<div class="panel-heading">
-				<h3 class="panel-title"><%= App.user.getFirstName() %> + <%= App.user.getLastName() %></h3>
+				<h3 class="panel-title"><%= App.user.getFirstName() %>' '<%= App.user.getLastName() %></h3>
 			</div>
 			<div class="panel-body">
 				<form id="UserInfo" role="form" class="form-horizontal">
@@ -10,13 +10,13 @@
 						<div class="form-group">
 							<label class="col-md-2 col-xs-3 control-label" for="Code">Code</label>
 							<div class="col-md-5 col-xs-5">
-								<input id="code" name="code" class="input-md form-control inline" type="text" value="<%= App.user.getCode() %> readonly"/>
+								<input id="code" name="code" class="input-md form-control inline" type="text" value="<%= App.user.getCode() %>" readonly/>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-md-2 col-xs-3 control-label" for="balance">Balance</label>
 							<div class="col-md-5 col-xs-5">
-								<input id="balance" name="balance" class="input-md form-control inline" type="text" value="<%= App.user.getBalance() %> readonly"/>
+								<input id="balance" name="balance" class="input-md form-control inline" type="text" value="<%= App.user.getBalance() %>" readonly/>
 							</div>
 						</div>
 					</fieldset>

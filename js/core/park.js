@@ -9,7 +9,7 @@
 /*********************************************
  * Templates
  *********************************************/
-var tplCheckInOutFormView = $('#CheckInOutFormView', '<div>' + templateString + '</div>').html();
+var tplHomeView = $('#HomeView', '<div>' + templateString + '</div>').html();
 var tplCreateParkFormView = $('#CreateParkFormView', '<div>' + templateString + '</div>').html();
 var tplParkDetailFormView = $('#ParkDetailFormView', '<div>' + templateString + '</div>').html();
 var tplParkItemView = $('#ParkItemView', '<div>' + templateString + '</div>').html();
@@ -45,8 +45,8 @@ $.extend(true, configs, App.Config.toJSON());
 		checkout(options);
 	}); 
 	
-	App.vent.on(module + ":displayCheckInOutFormView", function () {
-		displayCheckInOutFormView();
+	App.vent.on(module + ":displayHomeView", function () {
+		displayHomeView();
 	}); 
 	
 	App.vent.on(module + ":displayCreateParkFormView", function () {
@@ -80,12 +80,12 @@ var URLController = function (alias) {
 			displayMyParkListFormView();
 		} else  if (decision  == 'searchPark') {
 			displaySearchParkView();
-		} else  if (decision  == 'checkIn') {
-			displayCheckInOutFormView();
+		} else  if (decision  == 'home') {
+			displayHomeView();
 		} else  if (decision  == 'scan') {
 			scanQRCode();
 		} else {
-			displayCheckInOutFormView();
+			displayHomeView();
 		}
 	}
 };
@@ -181,7 +181,7 @@ var ModuleCollection = Backbone.Collection.extend({
  * Backbone Collection
  *********************************************/
 var ModuleCheckInOutFormView = Backbone.Marionette.ItemView.extend({
-	template: _.template(tplCheckInOutFormView),
+	template: _.template(tplHomeView),
 	onShow: function () {
 		if(App.user.isParking()){
 			$('.panel-title').html('Check Out');
@@ -192,63 +192,6 @@ var ModuleCheckInOutFormView = Backbone.Marionette.ItemView.extend({
 			nearestParkListRegion				: "#nearestParkListRegion"
 		});
 		displayNearestParks();
-	},
-	events: {
-		"submit"       										: "submit"
-	},
-	submit: function (e) {
-		e.preventDefault();
-		var self = this;
-		var code = $('#code').val();
-		if(App.user.isParking()){
-			var data = {
-				action: 'checkOut',
-				code: code,
-				user: App.user.getId()
-			};
-			
-			this.model.save(data, {
-				success: function (model) {
-					var str = 'you have checked out to ' + model.getName();
-					App.user.unsetParking();
-					displayCheckInOutFormView();
-					App.vent.trigger('user:refreshUser');
-					App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
-				},
-				error: function (model, err) {
-					var str = 'Faile to check out';
-					if(err.responseText){
-						str = JSON.parse(err.responseText).message;
-					}
-					App.Utils.showAlert({type: 'error', title: 'Error', content: str});
-				}
-			});
-		} else {
-			if(App.user.getBalance() > 0){
-				var data = {
-					action: 'checkIn',
-					code: code,
-					user: App.user.getId()
-				};
-				this.model.save(data, {
-					success: function (model) { 
-						var str = 'you have checked in to ' + model.getName();
-						App.user.setParking();
-						displayCheckInOutFormView();
-						App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
-					},
-					error: function (model, err) {
-						var str = 'Faile to check in';
-						if(err.responseText){
-							str = JSON.parse(err.responseText).message;
-						}
-						App.Utils.showAlert({type: 'error', title: 'Error', content: str});
-					}
-				});
-			} else {
-				App.Utils.showAlert({type: 'error', title: 'Error', content: 'Not enough balance'});
-			}
-		}
 	}
 });
 
@@ -417,8 +360,8 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 			this.model.save(data, {
 				success: function (model) { 
 					var str = 'you have reserve ' + model.getName() + 'for 1 mins';
-					displayCheckInOutFormView();
 					App.vent.trigger('user:refreshUser');
+					displayHomeView();
 					App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 				},
 				error: function (model, err) {
@@ -533,8 +476,8 @@ var checkout = function (options) {
 	});
 };
 
-var displayCheckInOutFormView = function (options) {
-	Backbone.history.navigate("#park/checkIn");
+var displayHomeView = function (options) {
+	Backbone.history.navigate("#park/home");
 	options = options || {};
 	if (!options.model){
 		options.model = new ModuleModel();	
@@ -542,6 +485,15 @@ var displayCheckInOutFormView = function (options) {
 	var view = new ModuleCheckInOutFormView({model: options.model});
 	App.layout[configs[module]['region']].show(view);
 };
+
+// var displayCheckInOutFormView = function (options) {
+	// options = options || {};
+	// if (!options.model){
+		// options.model = new ModuleModel();	
+	// }
+	// var view = new ModuleCheckInOutFormView({model: options.model});
+	// App.layout[configs[module]['region']].show(view);
+// };
 
 var displayCreateParkFormView = function (options) {
 	Backbone.history.navigate("#park/createPark");
@@ -636,7 +588,7 @@ var checkInOrOut = function(code){
 				var str = 'you have checked out to ' + model.getName();
 				App.user.unsetParking();
 				App.vent.trigger('user:refreshUser');
-				displayCheckInOutFormView();
+				displayHomeView();
 				App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 			},
 			error: function (model, err) {
@@ -658,7 +610,7 @@ var checkInOrOut = function(code){
 				success: function (model) { 
 					var str = 'you have checked in to ' + model.getName();
 					App.user.setParking();
-					displayCheckInOutFormView();
+					displayHomeView();
 					App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 				},
 				error: function (model, err) {

@@ -172,6 +172,9 @@ var ModuleModel = Backbone.Model.extend({
 	getFirstName : function (){
 		return this.get('firstName');
 	},
+	getLastName : function (){
+		return this.get('lastName');
+	},
 	getHKID : function (){
 		return this.get('HKIDOrCode');
 	},

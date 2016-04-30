@@ -83,7 +83,7 @@ var displayHomepage = function () {
 		App.vent.trigger('record:displayAlertRecord');
 	} else {
 		App.vent.trigger('menu:displayUserMenu');
-		App.vent.trigger('park:displayCheckInOutFormView');
+		App.vent.trigger('park:displayHomeView');
 	}
 };
 
