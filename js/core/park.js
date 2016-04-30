@@ -575,6 +575,7 @@ var displaySearchParkResultView = function (options) {
 };
 
 var checkInOrOut = function(code){
+	alert('code: ' + code);
 	var model = new ModuleModel();
 	if(App.user.isParking()){
 		var data = {
@@ -582,7 +583,6 @@ var checkInOrOut = function(code){
 			code: code,
 			user: App.user.getId()
 		};
-		
 		model.save(data, {
 			success: function (model) {
 				var str = 'you have checked out to ' + model.getName();
