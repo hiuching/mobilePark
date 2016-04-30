@@ -84,6 +84,8 @@ var URLController = function (alias) {
 			displayHomeView();
 		} else  if (decision  == 'scan') {
 			scanQRCode();
+		} else  if (decision  == 'checkInOrOut') {
+			checkInOrOut();
 		} else {
 			displayHomeView();
 		}
@@ -609,7 +611,7 @@ var checkInOrOut = function(code){
 				code: code,
 				user: App.user.getId()
 			};
-			this.model.save(data, {
+			model.save(data, {
 				success: function (model) { 
 					var str = 'you have checked in to ' + model.getName();
 					App.user.setParking();
