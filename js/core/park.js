@@ -583,20 +583,23 @@ var checkInOrOut = function(code){
 			code: code,
 			user: App.user.getId()
 		};
+		alert('code: ' + data.code);
 		model.save(data, {
 			success: function (model) {
 				var str = 'you have checked out to ' + model.getName();
 				App.user.unsetParking();
 				App.vent.trigger('user:refreshUser');
 				displayHomeView();
-				App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+				// App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+				alert(str);
 			},
 			error: function (model, err) {
 				var str = 'Faile to check out';
 				if(err.responseText){
 					str = JSON.parse(err.responseText).message;
 				}
-				App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+				// App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+				alert(str);
 			}
 		});
 	} else {
@@ -611,18 +614,21 @@ var checkInOrOut = function(code){
 					var str = 'you have checked in to ' + model.getName();
 					App.user.setParking();
 					displayHomeView();
-					App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+					// App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+					alert(str);
 				},
 				error: function (model, err) {
 					var str = 'Faile to check in';
 					if(err.responseText){
 						str = JSON.parse(err.responseText).message;
 					}
-					App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+					// App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+					alert(str);
 				}
 			});
 		} else {
-			App.Utils.showAlert({type: 'error', title: 'Error', content: 'Not enough balance'});
+			// App.Utils.showAlert({type: 'error', title: 'Error', content: 'Not enough balance'});
+			alert('Not enough balance');
 		}
 	}
 };
