@@ -588,7 +588,7 @@ var displayNearestParks = function () {
 				});
 			});
 		} else {
-			console.log("Browser doesn't support Geolocation");
+			App.Utils.showAlert({type: 'error', title: 'Error', content: "Browser doesn't support Geolocation"});
 		}
 	}});
 };
@@ -623,6 +623,7 @@ var displaySearchParkResultView = function (options) {
 };
 
 var scanQRCode = function (options) {
+	App.Utils.showAlert({type: 'Success', title: 'Success', content: 'scanQRCode'});
 	cordova.plugins.barcodeScanner.scan(
 		function (result) {
 			if(!result.cancelled)
