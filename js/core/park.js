@@ -204,9 +204,6 @@ var ModuleHomeView = Backbone.Marionette.ItemView.extend({
 	initialize: function(){
 		this.record = this.options.record;
 	},
-	onClose: function(){
-		stopTimer(timer);
-	},
 	template: _.template(tplHomeView),
 	onShow: function () {
 		$(document).scrollTop(0);
