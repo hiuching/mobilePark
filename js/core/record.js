@@ -56,6 +56,10 @@ $.extend(true, configs, App.Config.toJSON());
 		displayAlertRecord(alias);
 	});
 	
+	App.vent.on("record:findActiveParkingByUser", function (callback) {
+		findActiveParkingByUser(callback);
+	});
+	
 	App.vent.on("record:URLController", function (alias) {
 		URLController(alias);
 	});
@@ -421,6 +425,16 @@ var showRecordByUser = function () {
 			App.layout[configs[module]['region']].show(view);
 		}
 	});
+};
+
+var findActiveParkingByUser = function (callback) {
+	fetch({action: 'findActiveParkingByUser', code: App.user.getCode()}, function(err, records){
+		if(err){
+			console.log(err);
+		} else {
+			callback(null, records);
+		}
+	})
 };
 
 var fetch = function (options, callback) {

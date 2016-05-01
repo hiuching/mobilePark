@@ -182,12 +182,19 @@ var ModuleCollection = Backbone.Collection.extend({
 /*********************************************
  * Backbone Collection
  *********************************************/
-var ModuleCheckInOutFormView = Backbone.Marionette.ItemView.extend({
+var ModuleHomeView = Backbone.Marionette.ItemView.extend({
+	initialize: function(){
+		this.record = this.options.record;
+	},
 	template: _.template(tplHomeView),
 	onShow: function () {
 		if(App.user.isParking()){
 			$('.panel-title').html('Check Out');
 			$('.user-submit').html('Check Out');
+		}
+		if(this.record){
+			// console.log(this.record, this.record.getStartTime());
+			$('#qrScanner').html('Scan QR code' + ' ( ' +moment().from(new Date(this.record.getStartTime()), true)  + ' )');
 		}
 		var rm = new Marionette.RegionManager();
 		parkListRegions = rm.addRegions({
@@ -200,8 +207,7 @@ var ModuleCheckInOutFormView = Backbone.Marionette.ItemView.extend({
 	checkIn: function(){
 		scanQRCode();
 	}
-	
-	});
+});
 
 var ModuleCreatParkFormView = Backbone.Marionette.ItemView.extend({
 	template: _.template(tplCreateParkFormView),
@@ -491,8 +497,20 @@ var displayHomeView = function (options) {
 	if (!options.model){
 		options.model = new ModuleModel();	
 	}
-	var view = new ModuleCheckInOutFormView({model: options.model});
-	App.layout[configs[module]['region']].show(view);
+	if(App.user.isParking()){
+		App.vent.trigger('record:findActiveParkingByUser', function(err, records){
+			if(!err){
+				var view = new ModuleHomeView({model: options.model, record: records.at(0)});
+				App.layout[configs[module]['region']].show(view);
+			} else {
+				var view = new ModuleHomeView({model: options.model});
+				App.layout[configs[module]['region']].show(view);
+			}
+		});
+	} else {
+		var view = new ModuleHomeView({model: options.model});
+		App.layout[configs[module]['region']].show(view);
+	}
 };
 
 // var displayCheckInOutFormView = function (options) {
@@ -585,6 +603,7 @@ var displaySearchParkResultView = function (options) {
 
 var checkInOrOut = function(code){
 	var model = new ModuleModel();
+	$('#qrScanner').prop('disabled', 'disabled');
 	if(App.user.isParking()){
 		var data = {
 			action: 'checkOut',
@@ -596,6 +615,7 @@ var checkInOrOut = function(code){
 				var str = 'you have checked out to ' + model.getName();
 				App.user.unsetParking();
 				App.vent.trigger('user:refreshUser');
+				
 				displayHomeView();
 				// App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 				alert(str);
