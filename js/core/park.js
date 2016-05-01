@@ -194,8 +194,14 @@ var ModuleCheckInOutFormView = Backbone.Marionette.ItemView.extend({
 			nearestParkListRegion				: "#nearestParkListRegion"
 		});
 		displayNearestParks();
+	}, events: {
+		"click #qrScanner"	: "checkIn"
+	},
+	checkIn: function(){
+		scanQRCode();
 	}
-});
+	
+	});
 
 var ModuleCreatParkFormView = Backbone.Marionette.ItemView.extend({
 	template: _.template(tplCreateParkFormView),
@@ -480,6 +486,7 @@ var checkout = function (options) {
 
 var displayHomeView = function (options) {
 	Backbone.history.navigate("#park/home");
+	App.vent.trigger('user:refreshUser');
 	options = options || {};
 	if (!options.model){
 		options.model = new ModuleModel();	
@@ -584,7 +591,6 @@ var checkInOrOut = function(code){
 			code: code,
 			user: App.user.getId()
 		};
-		alert('code: ' + data.code);
 		model.save(data, {
 			success: function (model) {
 				var str = 'you have checked out to ' + model.getName();

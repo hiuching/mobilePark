@@ -113,12 +113,12 @@ form:after {
 	-o-box-shadow: 0 1px 0 #fff inset;
 	box-shadow: 0 1px 0 #fff inset;
 	border: 1px solid #c4c6ca;
-	margin: 0 auto;
+	margin: 10px auto;
 	padding: 25px 0 0;
 	position: relative;
 	text-align: center;
 	text-shadow: 0 1px 0 #fff;
-	width: 400px;
+	width: 300px;
 }
 #content h1 {
 	color: #7E7E7E;
@@ -498,8 +498,16 @@ form:after {
 .vertical-align{
 	margin: 3% 0;
 }
+
 .form-control{
 	margin-top: 5px;
 }
+
 .inline{
 	margin-top: 0;
+}
+
+#qrScanner{
+	margin-bottom: 20px;
+	width: 100%
+}

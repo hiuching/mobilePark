@@ -270,8 +270,7 @@ var ModuleChangePasswordFormView = Backbone.Marionette.ItemView.extend({
 		$(document).scrollTop(0);
 	},
 	events: {
-		"mousedown .changepasswordEye"   : "toggleHidden",
-		"mouseup .changepasswordEye" 		: "toggleHidden",
+		"click .changepasswordEye"   : "toggleHidden",
 		"submit"       				: "save"
 	},
 	save: function (e) {
@@ -305,7 +304,7 @@ var ModuleChangePasswordFormView = Backbone.Marionette.ItemView.extend({
 	},
 	toggleHidden: function (e) {
 		e.preventDefault();
-		if (e.type=="mousedown") {
+		if ($('#' + $(e.currentTarget).data('target')).attr('type') == 'password') {
 			$('#' + $(e.currentTarget).data('target')).prop('type', 'text');
 		} else {
 			$('#' + $(e.currentTarget).data('target')).prop('type', 'password');
@@ -487,8 +486,7 @@ var ModuleLoginFormView = Backbone.Marionette.ItemView.extend({
 	},
 	events: {
 		"submit"       				: "login",
-		"mousedown .passwordEye"   : "toggleHidden",
-		"mouseup .passwordEye" 		: "toggleHidden"
+		"click .passwordEye"   : "toggleHidden"
 	},
 	login: function (e) {
 		e.preventDefault();
@@ -515,10 +513,10 @@ var ModuleLoginFormView = Backbone.Marionette.ItemView.extend({
 	},
 	toggleHidden: function (e) {
 		e.preventDefault();
-		if (e.type=="mousedown") {
-			$('#password').prop('type', 'text');
+		if ($('#' + $(e.currentTarget).data('target')).attr('type') == 'password') {
+			$('#' + $(e.currentTarget).data('target')).prop('type', 'text');
 		} else {
-			$('#password').prop('type', 'password');
+			$('#' + $(e.currentTarget).data('target')).prop('type', 'password');
 		}
 	}
 });
@@ -618,10 +616,8 @@ var ModuleSignUpFormView = Backbone.Marionette.ItemView.extend({
 	},
 	events: {
 		"submit"       							: "submit",
-		"mousedown .passwordEye"  	: "toggleHidden",
-		"mouseup .passwordEye" 			: "toggleHidden",
-		"mousedown .passwordEye2"   : "toggleHiddenComfirmPassword",
-		"mouseup .passwordEye2" 		: "toggleHiddenComfirmPassword"
+		"click .passwordEye"  	: "toggleHidden",
+		"click .passwordEye2"   : "toggleHiddenComfirmPassword"
 	},
 	submit: function(e){
 		e.preventDefault();
@@ -649,7 +645,7 @@ var ModuleSignUpFormView = Backbone.Marionette.ItemView.extend({
 	},
 	toggleHidden: function (e) {
 		e.preventDefault();
-		if (e.type=="mousedown") {
+		if ($('#password').attr('type') == 'password') {
 			$('#password').prop('type', 'text');
 		} else {
 			$('#password').prop('type', 'password');
@@ -657,7 +653,7 @@ var ModuleSignUpFormView = Backbone.Marionette.ItemView.extend({
 	},
 	toggleHiddenComfirmPassword: function (e) {
 		e.preventDefault();
-		if (e.type == "mousedown") {
+		if ($('#confirmPassword').attr('type') == 'password') {
 			$('#confirmPassword').prop('type', 'text');
 		} else {
 			$('#confirmPassword').prop('type', 'password');
