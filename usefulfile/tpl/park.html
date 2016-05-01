@@ -1,4 +1,8 @@
-﻿<script type="text/template" id="HomeView">
+﻿<script type="text/template" id="HomeContentView">
+	<div id="homeContentRegion"></div>
+</script>
+
+<script type="text/template" id="HomeView">
 	<div class="container">
 		<div class="panel panel-black">
 			<div class="panel-heading">
@@ -225,6 +229,7 @@
 		<div class = "col-md-8 col-xs-8">
 			<div><b><%= obj.name %></b></div>
 			<div>type: <%= obj.type%></div>
+			<div>address: <%= obj.address%></div>
 			<div>quantity: <%= obj.quantity%></div>
 		</div>
 		<div class = "col-md-4 col-xs-4">

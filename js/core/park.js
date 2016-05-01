@@ -10,6 +10,7 @@
  * Templates
  *********************************************/
 var tplHomeView = $('#HomeView', '<div>' + templateString + '</div>').html();
+var tplHomeContentView = $('#HomeContentView', '<div>' + templateString + '</div>').html();
 var tplCreateParkFormView = $('#CreateParkFormView', '<div>' + templateString + '</div>').html();
 var tplParkDetailFormView = $('#ParkDetailFormView', '<div>' + templateString + '</div>').html();
 var tplParkItemView = $('#ParkItemView', '<div>' + templateString + '</div>').html();
@@ -26,6 +27,10 @@ var searchItem = {};
 var CachedCollection;
 var ResultRegions;
 var parkListRegions;
+var homeRegions;
+
+var time = 60000;
+var timer;
 /*********************************************
  * Main function (export)
  *********************************************/
@@ -182,12 +187,29 @@ var ModuleCollection = Backbone.Collection.extend({
 /*********************************************
  * Backbone Collection
  *********************************************/
+var ModuleHomeContentView = Backbone.Marionette.ItemView.extend({
+	onClose: function(){
+		stopTimer(timer);
+	},
+	template: _.template(tplHomeContentView),
+	onShow: function () {
+		var rm = new Marionette.RegionManager();
+		homeRegions = rm.addRegions({
+			homeContentRegion				: "#homeContentRegion"
+		});
+	}
+});
+
 var ModuleHomeView = Backbone.Marionette.ItemView.extend({
 	initialize: function(){
 		this.record = this.options.record;
 	},
+	onClose: function(){
+		stopTimer(timer);
+	},
 	template: _.template(tplHomeView),
 	onShow: function () {
+		$(document).scrollTop(0);
 		if(App.user.isParking()){
 			$('.panel-title').html('Check Out');
 			$('.user-submit').html('Check Out');
@@ -404,31 +426,10 @@ var ModuleParkListView = Backbone.Marionette.CompositeView.extend({
 		collectionView.$(".parkList").append(itemView.el);
 	},
 	onShow: function(){
-		// console.log(App.Utils.detectmoblie());
-		// if(App.Utils.detectmoblie()){
-			// $('#pager').hide();
-
-			// $("#parktable").tablesorter({
-				// theme: 'default',
-				// widthFixed: false,
-				// widgets: ['zebra']
-			// })
-		// } else {
-			// $("#parktable").tablesorter({
-					// theme: 'default',
-					// widthFixed: true,
-					// widgets: ['zebra']
-			// }).tablesorterPager({
-					// container: $("#pager"),
-					// page: 0,
-					// size: 20,
-					// output: '{startRow} to {endRow} ({totalRows})'
-			// });
-		// }
+		$(document).scrollTop(0);
 		if (App.user.isUser()){
 			$('.options').html('Detail');
 		}
-		
 	},
 	events: {
 		'click .refresh'	: 'refresh'
@@ -491,6 +492,16 @@ var checkout = function (options) {
 };
 
 var displayHomeView = function (options) {
+	var view = new ModuleHomeContentView({model: new ModuleModel()});
+	App.layout[configs[module]['region']].show(view);
+	
+	showHomeView();
+	timer = setInterval(function () {
+		showHomeView();
+	}, time);
+};
+
+var showHomeView = function (options) {
 	Backbone.history.navigate("#park/home");
 	App.vent.trigger('user:refreshUser');
 	options = options || {};
@@ -501,15 +512,15 @@ var displayHomeView = function (options) {
 		App.vent.trigger('record:findActiveParkingByUser', function(err, records){
 			if(!err){
 				var view = new ModuleHomeView({model: options.model, record: records.at(0)});
-				App.layout[configs[module]['region']].show(view);
+				homeRegions.homeContentRegion.show(view);
 			} else {
 				var view = new ModuleHomeView({model: options.model});
-				App.layout[configs[module]['region']].show(view);
+				homeRegions.homeContentRegion.show(view);
 			}
 		});
 	} else {
 		var view = new ModuleHomeView({model: options.model});
-		App.layout[configs[module]['region']].show(view);
+		homeRegions.homeContentRegion.show(view);
 	}
 };
 
@@ -614,9 +625,12 @@ var checkInOrOut = function(code){
 			success: function (model) {
 				var str = 'you have checked out to ' + model.getName();
 				App.user.unsetParking();
+				var balance = App.user.getBalance();
 				App.vent.trigger('user:refreshUser');
 				
-				displayHomeView();
+				if (App.user.getBalance() != balance){
+					displayHomeView();
+				}
 				// App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 				alert(str);
 			},
@@ -700,5 +714,11 @@ var fetch = function (options, callback) {
 		callback(null, cachedCollection);
 	});
 };
+
+var stopTimer = function (timer) {
+	clearTimeout(timer);
+};
+
+
 	return Park;   
 });
