@@ -94,6 +94,9 @@ var ModuleModel = Backbone.Model.extend({
 	getId :function (){
 		return this.get('_id') || '';
 	},
+	getAlert : function (){
+		return this.get('alert');
+	},
 	getEndTime : function (){
 		return this.get('endTime');
 	},

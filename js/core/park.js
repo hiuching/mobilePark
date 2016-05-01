@@ -213,7 +213,11 @@ var ModuleHomeView = Backbone.Marionette.ItemView.extend({
 		}
 		if(this.record){
 			// console.log(this.record, this.record.getStartTime());
-			$('#qrScanner').html('Scan QR code' + ' ( ' +moment().from(new Date(this.record.getStartTime()), true)  + ' )');
+			$('#qrScanner').html('Scan QR code' + '<span class="checkInTime"> ( ' +moment().from(new Date(this.record.getStartTime()), true)  + ' )</span>');
+				console.log(this.record.getAlert());
+			if(this.record.getAlert()){
+				$('.checkInTime').css('color','red');
+			}
 		}
 		var rm = new Marionette.RegionManager();
 		parkListRegions = rm.addRegions({
