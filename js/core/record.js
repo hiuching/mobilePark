@@ -180,7 +180,8 @@ var ModuleAlertRecordItemView = Backbone.Marionette.ItemView.extend({
 	initialize: function(options){
 	},
 	template: _.template(tplAlertRecordItemView),
-	tagName:'tr',
+	tagName:'li',
+	className: 'list-group-item',
 	onBeforeRender: function(){
 		this.model.beforeRender();
 	}
@@ -190,7 +191,8 @@ var ModuleCheckOutByResultItemView = Backbone.Marionette.ItemView.extend({
 	initialize: function(options){
 	},
 	template: _.template(tplCheckOutByResultItemView),
-	tagName:'tr',
+	tagName:'li',
+	className: 'list-group-item',
 	onBeforeRender: function(){
 		this.model.beforeRender();
 		this.model.setUser();
@@ -223,28 +225,6 @@ var ModuleAlertRecordListView = Backbone.Marionette.CompositeView.extend({
 	appendHtml: function (collectionView, itemView, index) {
 		collectionView.$(".alertRecordList").append(itemView.el);
 	},
-	onShow: function(){
-		if(App.Utils.detectmoblie()){
-			$('#pager').hide();
-
-			$("#alertRecordtable").tablesorter({
-				theme: 'default',
-				widthFixed: false,
-				widgets: ['zebra']
-			})
-		} else {
-			$("#alertRecordtable").tablesorter({
-					theme: 'default',
-					widthFixed: true,
-					widgets: ['zebra']
-			}).tablesorterPager({
-					container: $("#pager"),
-					page: 0,
-					size: 20,
-					output: '{startRow} to {endRow} ({totalRows})'
-			});
-		}
-	},
 	events: {
 		'click .refresh'	: 'refresh'
 	},
@@ -267,28 +247,6 @@ var ModuleRecordListView = Backbone.Marionette.CompositeView.extend({
 	template: _.template(tplRecordListView),
 	appendHtml: function (collectionView, itemView, index) {
 		collectionView.$(".recordList").append(itemView.el);
-	},
-	onShow: function(){
-		// if(App.Utils.detectmoblie()){
-			// $('#pager').hide();
-
-			// $("#recordtable").tablesorter({
-				// theme: 'default',
-				// widthFixed: false,
-				// widgets: ['zebra']
-			// })
-		// } else {
-			// $("#recordtable").tablesorter({
-					// theme: 'default',
-					// widthFixed: true,
-					// widgets: ['zebra']
-			// }).tablesorterPager({
-					// container: $("#pager"),
-					// page: 0,
-					// size: 20,
-					// output: '{startRow} to {endRow} ({totalRows})'
-			// });
-		// }
 	},
 	events: {
 		'click .refresh'	: 'refresh'

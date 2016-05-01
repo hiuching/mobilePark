@@ -33,11 +33,17 @@
 </script>
 
 <script type="text/template" id="CheckOutByResultItemView">
-	<td><b>	<%= obj.name%></b></td>
-	<td><b>	<%= obj.username%></b></td>
-	<td><b>	<%= obj.phone%></b></td>
-	<td><b>	<%= obj.startTime %></b></td>
-	<td><button class="btn btn-xs btn-success checkout">checkout</button></td>
+	<div class = 'row'>
+		<div class = "col-md-9 col-xs-9">
+			<div>Park Name: <b><%= obj.name %></b></div>
+			<div>User Name: <b><%= obj.user %></b></div>
+			<div>Phone: <%= obj.phone%></div>
+			<div>Time: <%= obj.startTime%></div>
+		</div>
+		<div class = "col-md-3 col-xs-3">
+			<div><button class="btn btn-success checkout pull-right">checkout</button></div>
+		</div>
+	</div>
 </script>
 
 <script type="text/template" id="CheckOutByResultListView">
@@ -46,29 +52,22 @@
 			<div class="panel-heading">
 				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
 			</div>
-				<table class="table table-responsive">
-					<thead>
-						<tr>
-							<th width="20%">Park</th>
-							<th width="20%">User</th>
-							<th width="20%">Phone</th>
-							<th width="20%">Start Time</th>
-							<th width="20%">Check Out</th>
-						</tr>
-					</thead>
-					<tbody class="checkOutByResultList">
-					</tbody>
-				</table>
+				<ul class="checkOutByResultList list-group">
+				</ul>
 		</div>
 	</div>
 </script>
 
 <script type="text/template" id="AlertRecordItemView">
-	<td><b>	<%= obj.name%></b></td>
-	<td><b>	<%= obj.startTime %></b></td>
-	<td><b>	<%= obj.user %></b></td>
-	<td><b>	<%= obj.phone %></b></td>
-	<td><b>	<%= obj.timeLimit %></b></td>
+	<div class = 'row'>
+		<div class = "col-md-12 col-xs-12">
+			<div>Park: <b><%= obj.name %></b></div>
+			<div>User: <b><%= obj.user%></b></div>
+			<div>Phone: <%= obj.phone%></div>
+			<div>Time: <%= obj.startTime%></div>
+			<div>Limit: <%= obj.timeLimit%></div>
+		</div>
+	</div>
 </script>
 
 <script type="text/template" id="AlertRecordListView">
@@ -76,40 +75,15 @@
 		<div class="panel panel-black">
 			<div class="panel-heading">
 				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
-				<div id="pager" class="pager tablesorter-pager pull-right">
-					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
-					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
-					<span class="pagedisplay"></span>
-					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
-					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
-					<select class="pagesize notRead" title="Select Page Size">
-						<option selected="selected" value="5">5</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-					</select>
-					<select class=" notRead" title="Select page number"></select>
-				</div>
 			</div>
-				<table class="table table-list-search table-responsive tablesorter" id="alertRecordtable">
-					<thead>
-						<tr>
-							<th width="20%">Name</th>
-							<th width="20%">Start Time</th>
-							<th width="20%">user</th>
-							<th width="20%">phone</th>
-							<th width="20%">limit</th>
-						</tr>
-					</thead>
-					<tbody class="alertRecordList">
-					</tbody>
-				</table>
+				<ul class="alertRecordList list-group">
+				</ul>
 		</div>
 	</div>
 </script>
 
 <script type="text/template" id="RecordItemView">
-		<div class = 'row'>
+	<div class = 'row'>
 		<div class = "col-md-10 col-xs-10">
 			<div><b><%= obj.name %></b></div>
 			<div>Time: <%= obj.startTime %><%= obj.endTime ? " - " + obj.endTime : "" %></div>
@@ -126,36 +100,9 @@
 		<div class="panel panel-black">
 			<div class="panel-heading">
 				<h3 class="panel-title">Record<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
-<!-- 				<div id="pager" class="pager tablesorter-pager pull-right">
-					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
-					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
-					<span class="pagedisplay"></span>
-					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
-					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
-					<select class="pagesize notRead" title="Select Page Size">
-						<option selected="selected" value="5">5</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-					</select>
-					<select class=" notRead" title="Select page number"></select>
-				</div> -->
 			</div>
-<!-- 				<table class="table table-list-search table-responsive tablesorter" id="recordtable">
-					<thead>
-						<tr>
-							<th width="30%">Name</th>
-							<th width="20%">Start Time</th>
-							<th width="20%">End Time</th>
-							<th width="30%">Amount</th>
-						</tr>
-					</thead>
-					<tbody class="recordList">
-					</tbody>
-				</table> -->
-				
-					<ul class="recordList list-group">
-					</ul>
-		</div>
+				<ul class="recordList list-group">
+				</ul>
+			</div>
 	</div>
 </script>

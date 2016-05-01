@@ -1,10 +1,16 @@
 <script type="text/template" id="ReportItemView">
-	<td><b>	<%= obj.name%></b></td>
-	<td><b>	<%= obj.registrationMark%></b></td>
-	<td><b>	<%= obj.time %></b></td>
-	<td><b>	<%= obj.reporter %></b></td>
-	<td><b>	<%= obj.remark %></b></td>
-	<td><button class="btn btn-xs btn-danger deActivate table-btn-1">Cancel</button></td>
+	<div class = 'row'>
+		<div class = "col-md-9 col-xs-9">
+			<div><%= obj.name %></div>
+			<div>Registration Mark: <%= obj.registrationMark %></div>
+			<div>Time: <%= obj.time %></div>
+			<div>Reporter: <%= obj.reporter %></div>
+			<div>Remark: <%= obj.remark %></div>
+		</div>
+		<div class = "col-md-3 col-xs-3 vertical-align">
+			<button class="btn btn-danger deActivate table-btn-1 pull-right">Cancel</button>
+		</div>
+	</div>
 </script>
 
 <script type="text/template" id="ReportListView">
@@ -12,35 +18,9 @@
 		<div class="panel panel-black">
 			<div class="panel-heading">
 				<h3 class="panel-title">Report<i class="fa fa-refresh refresh canClick pull-right" style="margin-left: 15px;"></i></h3>
-				<div id="pager" class="pager tablesorter-pager pull-right">
-					<a type="button" class="btn btn-xs btn-default first"><i class="fa fa-step-backward"></i></a>
-					<a type="button" class="btn btn-xs btn-default prev"><i class="fa fa-backward"></i></a>
-					<span class="pagedisplay"></span>
-					<a type="button" class="btn btn-xs btn-default follow"><i class="fa fa-forward"></i></a>
-					<a type="button" class="btn btn-xs btn-default last"><i class="fa fa-step-forward"></i></a>
-					<select class="pagesize notRead" title="Select Page Size">
-						<option selected="selected" value="5">5</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-					</select>
-					<select class=" notRead" title="Select page number"></select>
-				</div>
 			</div>
-				<table class="table table-list-search table-responsive tablesorter" id="reporttable">
-					<thead>
-						<tr>
-							<th width="20%">Name</th>
-							<th width="20%">Registration Mark</th>
-							<th width="10%">Time</th>
-							<th width="20%">reporter</th>
-							<th width="20%">Remark</th>
-							<th width="10%">Delete</th>
-						</tr>
-					</thead>
-					<tbody class="reportList">
-					</tbody>
-				</table>
+				<ul class="reportList list-group">
+				</ul>
 		</div>
 	</div>
 </script>

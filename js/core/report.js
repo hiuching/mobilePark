@@ -166,7 +166,8 @@ var ModuleReportItemView = Backbone.Marionette.ItemView.extend({
 	initialize: function(options){
 	},
 	template: _.template(tplReportItemView),
-	tagName:'tr',
+	tagName:'li',
+	className: 'list-group-item',
 	onBeforeRender: function(){
 		this.model.beforeRender();
 	},
@@ -199,28 +200,6 @@ var ModuleReportListView = Backbone.Marionette.CompositeView.extend({
 	template: _.template(tplReportListView),
 	appendHtml: function (collectionView, itemView, index) {
 		collectionView.$(".reportList").append(itemView.el);
-	},
-	onShow: function(){
-		if(App.Utils.detectmoblie()){
-			$('#pager').hide();
-
-			$("#reporttable").tablesorter({
-				theme: 'default',
-				widthFixed: false,
-				widgets: ['zebra']
-			})
-		} else {
-			$("#reporttable").tablesorter({
-					theme: 'default',
-					widthFixed: true,
-					widgets: ['zebra']
-			}).tablesorterPager({
-					container: $("#pager"),
-					page: 0,
-					size: 20,
-					output: '{startRow} to {endRow} ({totalRows})'
-			});
-		}
 	},
 	events: {
 		'click .refresh'	: 'refresh'
