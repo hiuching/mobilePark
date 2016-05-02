@@ -623,11 +623,9 @@ var checkInOrOut = function(code){
 				var str = 'you have checked out to ' + model.getName();
 				App.user.unsetParking();
 				var balance = App.user.getBalance();
-				App.vent.trigger('user:refreshUser');
-				
-				if (App.user.getBalance() != balance){
+				App.vent.trigger('user:refreshUser', {callback: function(){
 					displayHomeView();
-				}
+				}});
 				// App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 				alert(str);
 			},

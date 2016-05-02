@@ -95,8 +95,8 @@ $.extend(true, configs, App.Config.toJSON());
 		resolve(alias);
 	});
 	 
-	App.vent.on(module + ":refreshUser", function (alias) {
-		refreshUser(alias);
+	App.vent.on(module + ":refreshUser", function (options) {
+		refreshUser(options);
 	});
 	 
 	App.vent.on(module + ":logout", function (alias) {
@@ -1161,8 +1161,20 @@ var showUserList = function(options){
 	newRegion.userRegion.show(view);
 };
 
-var refreshUser = function (alias) {
-	App.user.fetch();
+var refreshUser = function (options) {
+	options = options || {};
+	if (typeof options.callback == 'function'){
+		App.user.fetch({
+			success: function (user) {
+				callback();
+			},
+			error: function (user) {
+				callback();
+			}
+		});
+	} else {
+		App.user.fetch();
+	}
 };
 
 var resolve = function (alias) {
