@@ -207,10 +207,6 @@ var ModuleHomeView = Backbone.Marionette.ItemView.extend({
 	template: _.template(tplHomeView),
 	onShow: function () {
 		$(document).scrollTop(0);
-		if(App.user.isParking()){
-			$('.panel-title').html('Check Out');
-			$('.user-submit').html('Check Out');
-		}
 		if(this.record){
 			// console.log(this.record, this.record.getStartTime());
 			$('#qrScanner').html('Scan QR code' + '<span class="checkInTime"> ( ' +moment().from(new Date(this.record.getStartTime()), true)  + ' )</span>');
