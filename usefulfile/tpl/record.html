@@ -21,7 +21,7 @@
 								<input id="code" name="code" class="input-md form-control inline" type="text" value=""/>
 							</div>
 							<div class="col-md-2 col-xs-4">
-								<button type="submit" class="btn btn-default btn-md user-submit pull-right">Check In</button>
+								<button type="submit" class="btn btn-default btn-md user-submit pull-right">Check Out</button>
 							</div>
 						</div>
 					</fieldset>
@@ -36,7 +36,7 @@
 	<div class = 'row'>
 		<div class = "col-md-9 col-xs-9">
 			<div>Park Name: <b><%= obj.name %></b></div>
-			<div>User Name: <b><%= obj.user %></b></div>
+			<div>User Name: <b><%= obj.username %></b></div>
 			<div>Phone: <%= obj.phone%></div>
 			<div>Time: <%= obj.startTime%></div>
 		</div>
@@ -62,7 +62,7 @@
 	<div class = 'row'>
 		<div class = "col-md-12 col-xs-12">
 			<div>Park: <b><%= obj.name %></b></div>
-			<div>User: <b><%= obj.user%></b></div>
+			<div>User: <b><%= obj.username%></b></div>
 			<div>Phone: <%= obj.phone%></div>
 			<div>Time: <%= obj.startTime%></div>
 			<div>Limit: <%= obj.timeLimit%></div>
@@ -90,7 +90,7 @@
 			<div>Type: <%= obj.type%></div>
 		</div>
 		<div class = "col-md-2 col-xs-2 vertical-align">
-			<h2><%= obj.totalCost %></h2>
+			<h3><%= obj.totalCost %></h3>
 		</div>
 	</div>
 </script>

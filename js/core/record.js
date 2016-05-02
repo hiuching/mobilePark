@@ -129,7 +129,7 @@ var ModuleModel = Backbone.Model.extend({
 			code: this.getPark().code, 
 			name: this.getPark().name, 
 			phone: this.getUser().phone, 
-			user: this.getUser().firstName + ' ' + this.getUser().lastName,
+			username: this.getUser().firstName + ' ' + this.getUser().lastName,
 			startTime: new Date(this.getStartTime()).toDateFormat('dd/MM HH:mm'),
 			timeLimit: this.getPark().timeLimit
 		}
@@ -195,7 +195,7 @@ var ModuleCheckOutByResultItemView = Backbone.Marionette.ItemView.extend({
 	className: 'list-group-item',
 	onBeforeRender: function(){
 		this.model.beforeRender();
-		this.model.setUser();
+		// this.model.setUser();
 	},
 	events: {
 		"click .checkout"  : "checkout"
