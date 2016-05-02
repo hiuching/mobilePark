@@ -1166,7 +1166,7 @@ var refreshUser = function (options) {
 	if (typeof options.callback == 'function'){
 		App.user.fetch({
 			success: function (user) {
-				callback();
+				options.callback();
 			},
 			error: function (user) {
 				callback();
