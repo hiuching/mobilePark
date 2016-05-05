@@ -133,7 +133,8 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 	},
 	template: _.template(tplReportFormView),
 	events: {
-	"submit"		: 	'submit'
+	"submit"		: 	'submit',
+	"click #scanButton"	: "scanButton"
 	},
 	submit: function(e){
 		e.preventDefault();
@@ -142,7 +143,7 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 			registrationMark: $('#registrationMark').val().trim(),
 			remark: $('#remark').val().trim()
 		};
-		if (data.park && data.park != '' && data.registrationMark && data.registrationMark != ''){
+		if (data.park && data.park != ''){
 			this.model.setUser();
 			this.model.save(data, {
 				success: function (model) {
@@ -157,8 +158,14 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 				}
 			});
 		} else {
-			App.Utils.showAlert({type: 'error', title: 'Error', content: 'Missing park or registrationMark'});
+			App.Utils.showAlert({type: 'error', title: 'Error', content: 'Please scan the park QR code'});
 		}
+	},
+	scanButton: function(){
+		scanQRCode(function(code){
+			$('.qrResult').html('Scanned');
+			$('#park').val(code);
+		});
 	}
 });
 
@@ -246,6 +253,21 @@ var showReport = function (options) {
 	} else {
 		console.log("Browser doesn't support Geolocation");
 	}
+};
+
+var scanQRCode = function (callback) {
+	cordova.plugins.barcodeScanner.scan(
+		function (result) {
+			if(!result.cancelled){
+				callback(result.text);
+			} else {
+				alert("You have cancelled scan");
+			}
+		},
+		function (error) {
+				alert("Scanning failed: " + error);
+		}
+	);
 };
 
 

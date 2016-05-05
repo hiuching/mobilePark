@@ -61,7 +61,10 @@ $.extend(true, configs, App.Config.toJSON());
 	App.vent.on(module + ":displayMyParkListFormView", function () {
 		displayMyParkListFormView();
 	});
-	
+
+	App.vent.on(module + ":getParkListFormView", function (options) {
+		getParkListFormView(options);
+	});
 
 	App.vent.on(module + ":resolve", function (alias) {
 		resolve(alias);
@@ -352,6 +355,7 @@ var ModuleParkDetailFormView = Backbone.Marionette.ItemView.extend({
 
 var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 	initialize: function(options){
+		this.exportButton = this.options.exportButton;
 	},
 	template: _.template(tplParkItemView),
 	tagName:'li',
@@ -360,20 +364,27 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 		var self = this;
 		if (App.user.isUser()){
 			$('.edit').addClass('detail').removeClass('edit').html('detail');
-		}
-		if (this.model.getQuantity() <= 0  || !this.model.isAllowReserve()){
-			$('.reserve', this.el).hide();
-		}
-		records.forEach(function(code){
-			if (code == self.model.getCode() ){
-				$('.reserve', self.el).hide();
+			if (this.model.getQuantity() <= 0  || !this.model.isAllowReserve()){
+				$('.reserve', this.el).hide();
 			}
-		});
+			records.forEach(function(code){
+				if (code == self.model.getCode() ){
+					$('.reserve', self.el).hide();
+				}
+			});
+		} else {
+			$('.reserve', self.el).hide();
+		}
+		
+		if(this.exportButton){
+			$('.exportButton', self.el).removeClass('hidden');
+		}
 	},
 	events: {
 		'click .edit'	: 'edit',
 		'click .detail'	: 'detail',
-		'click .reserve'	: 'reserve'
+		'click .reserve'	: 'reserve',
+		'click .exportButton'	: 'exportReport'
 	},
 	edit: function(){
 		var self = this;
@@ -385,28 +396,32 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 	},
 	reserve: function(){
 		var self = this;
-			var data = {
-				action: 'reserve',
-				code: this.model.getCode(),
-				user: App.user.getId()
-			};
-			this.model.save(data, {
-				success: function (model) { 
-					var str = 'you have reserve ' + model.getName() + 'for 1 mins';
-					App.vent.trigger('user:refreshUser');
-					displayHomeView();
-					App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
-				},
-				error: function (model, err) {
-					var str = 'Faile to reserve';
-					if(err.responseText){
-						str = JSON.parse(err.responseText).message;
-					}
-					App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+		var data = {
+			action: 'reserve',
+			code: this.model.getCode(),
+			user: App.user.getId()
+		};
+		this.model.save(data, {
+			success: function (model) { 
+				var str = 'you have reserve ' + model.getName() + 'for 1 mins';
+				displayCheckInOutFormView();
+				App.vent.trigger('user:refreshUser');
+				App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
+			},
+			error: function (model, err) {
+				var str = 'Faile to reserve';
+				if(err.responseText){
+					str = JSON.parse(err.responseText).message;
 				}
-			});
+				App.Utils.showAlert({type: 'error', title: 'Error', content: str});
+			}
+		});
+	},
+	exportReport: function(){
+		App.vent.trigger('export:exportParkIncomeReport', {park: this.model.getId()})
 	}
 });
+
 
 
 /*********************************************
@@ -416,9 +431,15 @@ var ModuleParkListView = Backbone.Marionette.CompositeView.extend({
 	initialize: function(){
 		var self = this;
 		this.callback = this.options.callback;
+		this.exportButton = this.options.exportButton;
 	},
 	itemView: ModuleParkItemView,
 	template: _.template(tplParkListView),
+	itemViewOptions: function(){
+		return {
+			exportButton: this.exportButton
+		}
+	},
 	appendHtml: function (collectionView, itemView, index) {
 		collectionView.$(".parkList").append(itemView.el);
 	},
@@ -607,6 +628,17 @@ var displaySearchParkResultView = function (options) {
 			}
 		})
 	}});
+};
+
+var getParkListFormView = function (options) {
+	fetch({action: options.action, owner: options.ownerId}, function(err, parks, response){
+		if(err){
+			console.log(err);
+		} else {
+			var view = new ModuleParkListView({collection: parks, exportButton: options.exportButton});
+			options.callback(view);
+		}
+	});
 };
 
 var checkInOrOut = function(code){

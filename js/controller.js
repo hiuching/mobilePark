@@ -36,6 +36,8 @@ function (App) {
 			} else {
 				if (alias.indexOf("homepage") === 0) {
 					this.homepage(alias);
+				} else if (alias.indexOf("export") === 0) {
+					this.export(alias);
 				} else if (alias.indexOf("user") === 0) {
 					this.user(alias);
 				} else if (alias.indexOf("park") === 0) {
@@ -62,6 +64,9 @@ function (App) {
 		},
 		login: function(alias) {
 			App.vent.trigger("user:resolve", alias);
+		},
+		export: function(alias){
+			App.vent.trigger('export:URLController', alias);
 		},
 		park: function (alias) {
 			App.vent.trigger('park:URLController', alias);

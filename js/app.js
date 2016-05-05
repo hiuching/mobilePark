@@ -8,6 +8,7 @@
 
   "core/cookie",
   "core/cost",
+  "core/export",
   "core/homepage",
   "core/menu",
   "core/park",
@@ -19,6 +20,7 @@
 ], function($, _, Backbone, Marionette, Bootstrap, Layout,
 Cookie,
 Cost,
+Export,
 Homepage,
 Menu,
 Park,
@@ -113,6 +115,7 @@ App.display = function (options) {
  *********************************************/
 	function initComponents() {
 		App.Cost = new Cost();
+		App.Export = new Export();
 		App.Homepage = new Homepage();
 		App.Menu = new Menu();
 		App.Park = new Park();
