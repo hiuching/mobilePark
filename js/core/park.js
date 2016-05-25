@@ -404,7 +404,7 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 		this.model.save(data, {
 			success: function (model) { 
 				var str = 'you have reserve ' + model.getName() + 'for 1 mins';
-				displayCheckInOutFormView();
+				displayHomeView();
 				App.vent.trigger('user:refreshUser');
 				App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
 			},
