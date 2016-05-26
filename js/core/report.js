@@ -133,7 +133,7 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 	},
 	template: _.template(tplReportFormView),
 	events: {
-	"submit"		: 	'submit',
+	"click .report-save"		: 	'submit',
 	"click #scanButton"	: "scanButton"
 	},
 	submit: function(e){
