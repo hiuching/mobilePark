@@ -134,6 +134,7 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 	template: _.template(tplReportFormView),
 	events: {
 	"click .report-save"		: 	'submit',
+	"submit"		: 	'preventDefault',
 	"click #scanButton"	: "scanButton"
 	},
 	submit: function(e){
@@ -160,6 +161,9 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 		} else {
 			App.Utils.showAlert({type: 'error', title: 'Error', content: 'Please scan the park QR code'});
 		}
+	},
+	preventDefault: function(e){
+		e.preventDefault();
 	},
 	scanButton: function(){
 		scanQRCode(function(code){
