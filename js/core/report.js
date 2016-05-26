@@ -148,7 +148,7 @@ var ModuleReportFormView = Backbone.Marionette.ItemView.extend({
 			this.model.setUser();
 			this.model.save(data, {
 				success: function (model) {
-					App.vent.trigger('park:displayCheckInOutFormView');
+					App.vent.trigger('park:displayHomeView');
 				},
 				error: function (model, err) {
 					var str = 'Faile to submitted';
