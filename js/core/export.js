@@ -36,6 +36,10 @@ $.extend(true, configs, App.Config.toJSON());
 		resolve(alias);
 	});
 	
+	App.vent.on(module + ":exportCashierReport", function (options) {
+		exportCashierReport(options);
+	});
+	
 	App.vent.on(module + ":exportParkIncomeReport", function (options) {
 		exportOwnerReport(options);
 	});
@@ -93,6 +97,15 @@ var ModuleOwnerExportFormView = Backbone.Marionette.ItemView.extend({
 			parkRegion				: "#parkRegion"
 		});
 		displayParks();
+	},
+	events: {
+		'change #year, #month'		: 'updatesearchItem'
+	},
+	updatesearchItem: function(){
+		searchItem = {
+			dateFrom: $('#year').val() + '-' + $('#month').val() + '-' + '01',
+			dateTo: $('#year').val() + '-' + $('#month').val() + '-' + '31'
+		};
 	}
 });
 
@@ -150,8 +163,8 @@ var exportCashierReport = function (options) {
 
 var exportOwnerReport = function (options) {
 	var model = new ModuleModel();
-	var dateFrom = '2016-05-01';
-	var dateTo = '2016-05-31';
+	var dateFrom = options.dateFrom || searchItem.dateFrom;
+	var dateTo = options.dateTo || searchItem.dateTo;
 		// fetch({action: 'exportOwnerIncomeReport', park: options.park, dateTo: dateTo, dateFrom: dateFrom}, function(err, parks){
 			// return;
 		// });

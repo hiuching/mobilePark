@@ -11,6 +11,7 @@
  *********************************************/
 var tplHomeView = $('#HomeView', '<div>' + templateString + '</div>').html();
 var tplHomeContentView = $('#HomeContentView', '<div>' + templateString + '</div>').html();
+var tplExportParkCompositeView = $('#ExportParkCompositeView', '<div>' + templateString + '</div>').html();
 var tplCreateParkFormView = $('#CreateParkFormView', '<div>' + templateString + '</div>').html();
 var tplParkDetailFormView = $('#ParkDetailFormView', '<div>' + templateString + '</div>').html();
 var tplParkItemView = $('#ParkItemView', '<div>' + templateString + '</div>').html();
@@ -28,6 +29,7 @@ var CachedCollection;
 var ResultRegions;
 var parkListRegions;
 var homeRegions;
+var SearchAndResultRegions;
 
 var time = 60000;
 var timer;
@@ -84,6 +86,8 @@ var URLController = function (alias) {
 	if (urlParas) {
 		if (decision  == 'createPark') {
 			displayCreateParkFormView();
+		} else  if (decision  == 'exportPark') {
+			displayExportParkListView();
 		} else  if (decision  == 'myPark') {
 			displayMyParkListFormView();
 		} else  if (decision  == 'searchPark') {
@@ -167,7 +171,7 @@ var ModuleModel = Backbone.Model.extend({
 		data.coordinate1 = coordinate[0];
 		data.coordinate2 = coordinate[1];
 		this.getTimeRange().forEach(function(time){
-			if(time.startTime && time.endTime){
+			if (time.startTime && time.endTime){
 				data.startTime1 = time.startTime
 				data.endTime1 = time.endTime
 				data.cost1 = time.cost
@@ -376,7 +380,7 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 			$('.reserve', self.el).hide();
 		}
 		
-		if(this.exportButton){
+		if(this.exportButton || $('#year').val() && $('#month').val() ){
 			$('.exportButton', self.el).removeClass('hidden');
 		}
 	},
@@ -403,7 +407,7 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 		};
 		this.model.save(data, {
 			success: function (model) { 
-				var str = 'you have reserve ' + model.getName() + 'for 1 mins';
+				var str = 'you have reserve ' + model.getName() + 'for 30 mins';
 				displayHomeView();
 				App.vent.trigger('user:refreshUser');
 				App.Utils.showAlert({type: 'Success', title: 'Success', content: str});
@@ -418,7 +422,12 @@ var ModuleParkItemView = Backbone.Marionette.ItemView.extend({
 		});
 	},
 	exportReport: function(){
-		App.vent.trigger('export:exportParkIncomeReport', {park: this.model.getId()})
+		searchItem = {
+			dateFrom: $('#year').val() + '-' + $('#month').val() + '-' + '01',
+			dateTo: $('#year').val() + '-' + $('#month').val() + '-' + '31',
+			park: this.model.getId()
+		}
+		App.vent.trigger('export:exportParkIncomeReport', searchItem)
 	}
 });
 
@@ -462,6 +471,17 @@ var ModuleParkListView = Backbone.Marionette.CompositeView.extend({
 	}
 });
 
+var ModuleExportParkCompositeView = Backbone.Marionette.CompositeView.extend({
+	template: _.template(tplExportParkCompositeView),
+	onShow: function(){
+		var rm = new Marionette.RegionManager();
+		SearchAndResultRegions = rm.addRegions({
+			SearchAndResultRegion: "#SearchAndResultRegion"
+		});
+		displaySearchParkViewInExportView({callback: this.options.callback})
+	}
+});
+
 var ModuleSearchParkCompositeView = Backbone.Marionette.CompositeView.extend({
 	template: _.template(tplSearchParkCompositeView),
 	onShow: function(){
@@ -480,6 +500,9 @@ var ModuleSearchParkCompositeView = Backbone.Marionette.CompositeView.extend({
 		var self = this;
 		if($('#district').val()){
 			searchItem['district'] = $('#district').val();
+		}
+		if (this.options.callback && typeof this.options.callback == 'function'){
+			searchItem.callback = this.options.callback;
 		}
 		displaySearchParkResultView(searchItem);
 	}
@@ -614,16 +637,32 @@ var displaySearchParkView = function (options) {
 	App.layout[configs[module]['region']].show(view);		
 };
 
+var displayExportParkListView = function (options) {
+	Backbone.history.navigate("#park/exportPark");
+	options = options || {};
+	var view = new ModuleExportParkCompositeView({callback: displayExportParkListView});
+	App.layout[configs[module]['region']].show(view);		
+};
+
+var displaySearchParkViewInExportView = function (options) {
+	Backbone.history.navigate("#park/exportPark");
+	options = options || {};
+	var view = new ModuleSearchParkCompositeView({callback: displayExportParkListView});
+	SearchAndResultRegions.SearchAndResultRegion.show(view);		
+};
+
 var displaySearchParkResultView = function (options) {
 	options = options || searchItem;
 	// App.Utils.setUrlPath({pathname:"#park/myPark"});
+	
+	var callback = options.callback || displaySearchParkResultView;
 	App.vent.trigger("record:getReserveRecordByUser", {callback: function(err, reserveRecords){
 		records = reserveRecords;
 		fetch({action: 'findParkByDistrict', district: options.district}, function(err, parks){
 			if(err){
 				console.log(err);
 			} else {
-				var view = new ModuleParkListView({collection: parks, callback: displaySearchParkResultView});
+				var view = new ModuleParkListView({collection: parks, callback: callback});
 				ResultRegions.ParkListRegion.show(view);
 			}
 		})

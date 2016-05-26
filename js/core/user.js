@@ -707,7 +707,8 @@ var ModuleCashierItemView = Backbone.Marionette.ItemView.extend({
 	},
 	events: {
 		'click .detail'	: 'detail',
-		'click .resetPassword'	: 'resetPassword'
+		'click .resetPassword'	: 'resetPassword',
+		'click .exportButton'	: 'exportButton'
 	},
 	detail: function(){
 		var self = this;
@@ -715,6 +716,14 @@ var ModuleCashierItemView = Backbone.Marionette.ItemView.extend({
 	},
 	resetPassword: function(){
 		this.model.save({action: 'resetPassword'});
+	},
+	exportButton: function(){
+		var options = {
+			dateFrom: $('#year').val() + '-' + $('#month').val() + '-' + '01',
+			dateTo: $('#year').val() + '-' + $('#month').val() + '-' + '31',
+			handler: this.model.getId()
+		};
+		App.vent.trigger('export:exportCashierReport', options);
 	}
 });
 
